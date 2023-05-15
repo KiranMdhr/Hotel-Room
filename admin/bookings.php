@@ -48,6 +48,7 @@ if(isset($_POST['delete'])){
    
 <!-- header section starts  -->
 <?php include '../components/admin_header.php'; ?>
+
 <!-- header section ends -->
 
 <!-- bookings section starts  -->

@@ -705,26 +705,17 @@ if (isset($_POST['send'])) {
                      <i class="bi bi-star-fill text-warning"></i>
                      <i class="bi bi-star-fill text-warning"></i>
 
-
+                     
                   </div>
                </div>
 
             </div>
             <div class="swiper-pagination"></div>
          </div>
+      </div>
    </section>
-
-   <!-- reviews section ends  -->
-
-
-
-
-
    <?php include 'components/footer.php'; ?>
-
-   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+   <!-- reviews section ends  -->
 
 
    <script>
@@ -761,13 +752,7 @@ if (isset($_POST['send'])) {
          }
       });
    </script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   </script>
 
-
-
-   }
    <script>
       function toggleCard(event) {
          const card = event.target.closest('.card');
@@ -776,15 +761,8 @@ if (isset($_POST['send'])) {
       }
    </script>
 
-
-   In this example, we added an "id" attribute to the image tag to identify it in the jQuery code. We also added a div with an "id" attribute of "myCards" that contains the cards we want to display upon clicking the image. We set the "style" attribute of the "myCards" div to "display:none;" to hide it initially.
-
-   In the jQuery code, we use the "$" function to select the image by its ID ("#myImg"), and then we attach a click event handler to it using the "click" function. Inside the event handler, we use the "toggle" function to show or hide the "myCards" div each time the image is clicked.
-
-   <!-- custom js file link  -->
-   <script src="js/script.js"></script>
-
    <?php include 'components/message.php'; ?>
+   
 
 </body>
 

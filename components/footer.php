@@ -1,14 +1,14 @@
 <!-- footer section starts  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <style>
-   a{
-      text-decoration:none;
-      color: inherit;
-   }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 </style>
 
 
-   <!-- <div class="box-container">
+<!-- <div class="box-container">
 
       <div class="box">
          <a href="tel:5260267"><i class="fas fa-phone"></i> 5260267</a>
@@ -39,15 +39,14 @@
    </div> -->
 
 
-   <!-- Footer -->
+<!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
     <!-- Left -->
     <!-- <div class="me-5 d-none d-lg-block">
       <span>Get connected with us on social networks:</span>
-    </div>
--->
+    </div>-->
     <div>
       <a href="" class="me-4 text-reset">
         <i class="fab fa-facebook-f"></i>
@@ -69,7 +68,7 @@
       </a>
     </div>
     <!-- Right -->
-  </section> -->
+  </section>
   <!-- Section: Social media -->
 
   <!-- Section: Links  -->
@@ -84,7 +83,7 @@
             <i class="fas fa-gem me-3"></i>RK Hotel
           </h6>
           <p>
-           This is the website of RK Hotel from which you can book your rooms 
+            This is the website of RK Hotel from which you can book your rooms
           </p>
         </div>
         <!-- Grid column -->
@@ -138,10 +137,10 @@
           <p><i class="fas fa-home me-3"></i> Basantapur,Kathmandu,Nepal</p>
           <p>
             <i class="fas fa-envelope me-3"></i>
-           kiranmdhr9@gmail.com
+            kiranmdhr9@gmail.com
           </p>
-          <p></p><a href="tel:5280165" ><i class="fas fa-phone me-3"></i> 5280165</a></p>
-          <p></p><a href="tel:5280165" ><i class="fas fa-phone me-3"></i> 4256015</a></p>
+          <p></p><a href="tel:5280165"><i class="fas fa-phone me-3"></i> 5280165</a></p>
+          <p></p><a href="tel:5280165"><i class="fas fa-phone me-3"></i> 4256015</a></p>
         </div>
         <!-- Grid column -->
       </div>
@@ -151,75 +150,45 @@
   <!-- Section: Links  -->
 
   <footer class="bg-light text-center text-white">
-  <!-- Grid container -->
-  <div class="container p-4 pb-0">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
 
-      <!-- Twitter -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
+        <!-- Twitter -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter"></i></a>
 
-      <!-- Google -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
+        <!-- Google -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i class="fab fa-google"></i></a>
 
-      <!-- Instagram -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
+        <!-- Instagram -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i class="fab fa-instagram"></i></a>
 
-      <!-- Linkedin -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #0082ca;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-      <!-- Github -->
-      <a
-        class="btn text-white btn-floating m-1"
-        style="background-color: #333333;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  
-  
-</footer>
+        <!-- Linkedin -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+        <!-- Github -->
+        <a class="btn text-white btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i class="fab fa-github"></i></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+
+
+  </footer>
 
   <!-- Copyright -->
-  
+
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
 
-</section><script src="https://kit.fontawesome.com/6b4a1c444b.js" crossorigin="anonymous"></script>
-
+</section>
+<!-- custom js file link  -->
+<script src="https://kit.fontawesome.com/6b4a1c444b.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
 <!-- footer section ends -->

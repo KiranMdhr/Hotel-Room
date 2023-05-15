@@ -67,11 +67,12 @@ if(isset($_POST['cancel'])){
    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
   }
 .bookings{
-   padding-left:50%;
+   
 
 }
 .heading{
    padding-left:0%;
+   text-align: center;
 }
 .zoom {
   /* padding: 50px; */
@@ -162,7 +163,6 @@ if(isset($_POST['cancel'])){
 
 
 
-<?php include 'components/footer.php'; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 
@@ -172,6 +172,6 @@ if(isset($_POST['cancel'])){
 <script src="js/script.js"></script>
 
 <?php include 'components/message.php'; ?>
-
+<?php include 'components/footer.php'; ?>
 </body>
 </html>
