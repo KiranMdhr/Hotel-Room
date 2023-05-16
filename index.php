@@ -78,8 +78,6 @@ if (isset($_POST['book'])) {
 }
 
 if (isset($_POST['send'])) {
-
-   $id = create_unique_id();
    $name = $_POST['name'];
    $name = filter_var($name, FILTER_SANITIZE_STRING);
    $email = $_POST['email'];
@@ -93,13 +91,14 @@ if (isset($_POST['send'])) {
    $verify_message->execute([$name, $email, $number, $message]);
 
    if ($verify_message->rowCount() > 0) {
-      $warning_msg[] = 'message sent already!';
+      $warning_msg[] = 'Message already sent!';
    } else {
-      $insert_message = $conn->prepare("INSERT INTO `messages`(id, name, email, number, message) VALUES(?,?,?,?,?)");
-      $insert_message->execute([$id, $name, $email, $number, $message]);
-      $success_msg[] = 'message send successfully!';
+      $insert_message = $conn->prepare("INSERT INTO `messages` (name, email, number, message) VALUES (?, ?, ?, ?)");
+      $insert_message->execute([$name, $email, $number, $message]);
+      $success_msg[] = 'Message sent successfully!';
    }
 }
+
 
 ?>
 
@@ -110,7 +109,7 @@ if (isset($_POST['send'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>home</title>
+   <title>RK Hotel</title>
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -566,76 +565,76 @@ if (isset($_POST['send'])) {
    <!-- contact section starts  -->
 
    <section class="contact" id="contact">
-
-      <div class="row bg-white shadow ">
-
+   <div class="container">
+      <div class="row bg-white shadow">
          <form action="" method="post" class="mb-3 ms-5">
-
-            <h3 class="bold mt-4">Send Us Message</h3>
+            <h3 class="bold mt-4">Send Us a Message</h3>
             <div class="row align-items-end">
-               <div>
-                  <label class="form-label" style="font-weight:500;">Check-in</label>
-                  <input type="date" class="form=control shadow-none">
+               <div class="col-md-6">
+                  <label class="form-label" style="font-weight: 500;">Check-in</label>
+                  <input type="date" class="form-control shadow-none">
                </div>
-               <label for="name" style="font-weight:500;">Name</label>
-               <input type="text" name="name" required maxlength="50" class="box">
-               <label for="name" style="font-weight:500;">Email</label>
-               <input type="email" name="email" required maxlength="50" class="box">
-               <label for="phoneno" style="font-weight:500;">PhoneNo</label>
-               <input type="number" name="number" required maxlength="10" min="0" max="9999999999" class="box">
-               <label for="message" style="font-weight:500;">Message</label>
-               <textarea name="message" class="box" required maxlength="1000" cols="30" rows="10"></textarea>
-               <input type="submit" value="Submit" name="send" class="btn shadow-none custom-bg" style="font-weight:500;">
-
+               <div class="col-md-6">
+                  <label for="name" style="font-weight: 500;">Name</label>
+                  <input type="text" name="name" required maxlength="50" class="form-control">
+               </div>
+               <div class="col-md-6">
+                  <label for="email" style="font-weight: 500;">Email</label>
+                  <input type="email" name="email" required maxlength="50" class="form-control">
+               </div>
+               <div class="col-md-6">
+                  <label for="number" style="font-weight: 500;">Phone No</label>
+                  <input type="tel" name="number" required maxlength="10" class="form-control">
+               </div>
+               <div class="col-md-12">
+                  <label for="message" style="font-weight: 500;">Message</label>
+                  <textarea name="message" class="form-control" required maxlength="1000" rows="5"></textarea>
+               </div>
+               <div class="col-md-12 mt-3">
+                  <input type="submit" value="Submit" name="send" class="btn btn-primary">
+               </div>
             </div>
          </form>
-
       </div>
+   </div>
+</section>
 
-   </section>
+
 
    <!-- contact section ends -->
 
-   <!-- Hotel section starts -->
    <section class="hotels mt-5" id="hotels">
-      <div class="container mt-2">
-         <div class="row">
-            <div class="col-md-3 col-sm-6 ">
-               <div class="card card-block">
-                  <img src="images/soaltee.jpg" alt="Photo of sunset">
-                  <h5 class="card-title mt-3 mb-3">Soaltee Hotel</h5>
-                  <p class="card-text">Featuring rooms with a private bathroom, Soaltee Hotel is located at Soalteemode, the bustling tourist hub of Kathmandu. </p>
-                  <button onclick="window.location.href='cards.php';">
-                     View Rooms
-                  </button>
-               </div>
-            </div>
+   <div class="container mt-2">
+      <div class="row">
+         <?php
+         // Fetch hotel details from the database
+         $fetch_hotels = $conn->query("SELECT * FROM hotel_details");
+         while ($hotel = $fetch_hotels->fetch(PDO::FETCH_ASSOC)) {
+            $hotel_id = $hotel['hotel_id'];
+            $hotel_name = $hotel['hotel_name'];
+            $location = $hotel['location'];
+            $description = $hotel['description'];
+         ?>
             <div class="col-md-3 col-sm-6">
                <div class="card card-block">
-                  <img src="images/hyatt.jpg" alt="Photo of sunset">
-                  <h5 class="card-title  mt-3 mb-3">Hyatt Hotel</h5>
-                  <p class="card-text">Luxurious accommodations in Kathmandu is provided at Hyatt Hotel, it, spread over 12 acres of peaceful gardens.</p>
+                  <img src="images/<?php echo $hotel_name; ?>.jpg" alt="Photo of sunset">
+                  <h5 class="card-title mt-3 mb-3"><?php echo $hotel_name; ?></h5>
+                  <p class="card-text"><?php echo $description; ?></p>
+                  <p class="card-location">Location: <?php echo $location; ?></p>
+                  <form action="cards.php" method="post">
+                     <input type="hidden" name="hotel_id" value="<?php echo $hotel_id; ?>">
+                     <button type="submit" class="btn btn-primary">View Rooms</button>
+                  </form>
                </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="card card-block">
-
-                  <img src="images/yak.jpg" alt="Photo of sunset">
-                  <h5 class="card-title  mt-3 mb-3">Yak & Yeti Hotel</h5>
-                  <p class="card-text">Well located in the center of Kathmandu, Yak & Yeti Hotel provides air-conditioned rooms, a shared lounge, free WiFi and a restaurant.</p>
-               </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-               <div class="card card-block">
-
-                  <img src="images/malla.jpg" alt="Photo of sunset">
-                  <h5 class="card-title  mt-3 mb-3">Malla Hotel</h5>
-                  <p class="card-text">Conveniently located in Kathmandu, Malla Hotel provides air-conditioned rooms with free WiFi, free private parking and room service.</p>
-               </div>
-            </div>
-         </div>
+         <?php
+         }
+         ?>
       </div>
-   </section>
+   </div>
+</section>
+
+
 
 
    <!-- reviews section starts  -->
@@ -705,7 +704,7 @@ if (isset($_POST['send'])) {
                      <i class="bi bi-star-fill text-warning"></i>
                      <i class="bi bi-star-fill text-warning"></i>
 
-                     
+
                   </div>
                </div>
 
@@ -720,37 +719,41 @@ if (isset($_POST['send'])) {
 
    <script>
       var swiper = new Swiper(".testimonials", {
-         effect: "coverflow",
-         grabCursor: true,
-         centeredSlides: true,
-         slidesPerView: "3",
-         loop: true,
-         coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false,
-         },
-         pagination: {
-            el: ".swiper-pagination",
-         },
-         breakpoints: {
-            320: {
-               slidesPerView: 1,
-            },
-            640: {
-               slidesPerView: 1,
-            },
-            768: {
-               slidesPerView: 2,
-            },
-            1024: {
-               slidesPerView: 3,
-            }
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "3",
+  loop: true,
+  coverflowEffect: {
+    rotate: 50,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
+    slideShadows: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+  },
+  autoplay: {
+    delay: 2000,
+    disableOnInteraction: false,
+  },
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+    },
+    640: {
+      slidesPerView: 1,
+    },
+    768: {
+      slidesPerView: 2,
+    },
+    1024: {
+      slidesPerView: 3,
+    },
+  },
+});
 
-         }
-      });
    </script>
 
    <script>
@@ -762,7 +765,7 @@ if (isset($_POST['send'])) {
    </script>
 
    <?php include 'components/message.php'; ?>
-   
+
 
 </body>
 
