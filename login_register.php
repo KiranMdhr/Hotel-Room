@@ -31,7 +31,7 @@
                                             </div>
                                             <div class="form-group mt-2">
                                                 <input type="password" class="form-style" placeholder="Password">
-                                                <i class="input-icon uil uil-user"></i>
+                                                <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
                                             <a href="https://www.web-leb.com/code" class="btn mt-4">Login</a>
                                             <p class="mb-0 mt-4 text-center"><a href="https://www.web-leb.com/code" class="link">Forgot your password?</a></p>
@@ -49,7 +49,7 @@
 
                                             <div class="form-group mt-2">
                                                 <input type="text" class="form-style" placeholder="Username">
-                                                <i class="input-icon uil uil-at"></i>
+                                                <i class="input-icon uil uil-user"></i>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <input type="password" class="form-style" placeholder="Password">
