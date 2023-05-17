@@ -5,12 +5,28 @@ Each hotel has its own table:
 hotels_table
 
 ```sql
+
+CREATE DATABASE hotel_db;
+USE hotel_db;
 CREATE TABLE `account_details` (
-`id` VARCHAR(20) PRIMARY KEY,
-`name` VARCHAR(50) NOT NULL,
+`id` INT AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(100) NOT NULL,
+`username` VARCHAR(50) NOT NULL,
 `password` VARCHAR(50) NOT NULL,
 `account_type` ENUM('admin', 'user') NOT NULL
 );
+INSERT INTO `account_details` (`id`, `name`, `username`, `password`, `account_type`)
+VALUES
+    (1, 'Kiran Manandhar', 'kiran_admin', 'admin123', 'admin'),
+    (2, 'Romit Manandhar', 'romit_admin', 'admin123', 'admin'),
+    (3, 'Chandan Shakya', 'chandan_user', 'user123', 'user'),
+    (4, 'Asha Subedi', 'asha_user', 'user123', 'user'),
+    (5, 'Nabin Rai', 'nabin_user', 'user123', 'user'),
+    (6, 'Saraswati Bhandari', 'saraswati_user', 'user123', 'user'),
+    (7, 'Ramesh Gurung', 'ramesh_user', 'user123', 'user'),
+    (8, 'Sunita Thapa', 'sunita_user', 'user123', 'user'),
+    (9, 'Bijay Tamang', 'bijay_user', 'user123', 'user'),
+    (10, 'Anita Acharya', 'anita_user', 'user123', 'user');
 
 CREATE TABLE `hotel_details` (
 `hotel_id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,8 +94,8 @@ VALUES
     (24, 4, '308', 'Junior Suite', 'Suite', 190.00, 95.00, 'Spacious suite with a comfortable seating area.', 0);
 
 CREATE TABLE `bookings_details` (
-`booking_id` VARCHAR(20) PRIMARY KEY,
-`user_id` VARCHAR(20) NOT NULL,
+`booking_id` INT AUTO_INCREMENT PRIMARY KEY,
+`user_id` INT NOT NULL,
 `hotel_id` INT NOT NULL,
 `room_id` INT NOT NULL,
 `name` VARCHAR(50) NOT NULL,
@@ -100,7 +116,7 @@ FOREIGN KEY (`room_id`) REFERENCES `hotel_room_details`(`room_id`) ON DELETE CAS
 
 CREATE TABLE `review_details` (
 `review_id` INT PRIMARY KEY,
-`booking_id` VARCHAR(20) NOT NULL,
+`booking_id` INT NOT NULL,
 `rating` INT NOT NULL,
 `comment` TEXT,
 INDEX `booking_review_index`(`booking_id`),
@@ -118,12 +134,24 @@ CREATE TABLE `messages` (
 
 CREATE TABLE `site_reviews` (
 `review_id` INT PRIMARY KEY,
-`user_id` VARCHAR(20) NOT NULL,
+`user_id` INT NOT NULL,
 `rating` INT NOT NULL,
 `comment` TEXT,
 `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (`user_id`) REFERENCES `account_details`(`id`) ON DELETE CASCADE
 );
+INSERT INTO `site_reviews` (`review_id`, `user_id`, `rating`, `comment`)
+VALUES
+    (1, 3, 4, 'I booked a hotel through this website and had a pleasant experience.'),
+    (2, 5, 5, 'The hotel booking process was quick and hassle-free.'),
+    (3, 6, 3, 'I encountered some issues while searching for available hotels.'),
+    (4, 7, 4, 'The website provided a wide selection of hotels to choose from.'),
+    (5, 8, 5, 'I found great deals on hotel bookings through this website.'),
+    (6, 9, 4, 'The booking confirmation was received promptly via email.'),
+    (7, 10, 2, 'I faced difficulties while making changes to my hotel reservation.'),
+    (8, 3, 5, 'The hotel reviews and ratings helped me make an informed decision.'),
+    (9, 6, 4, 'The website offered competitive prices for hotel bookings.'),
+    (10, 7, 3, 'The user interface could be more intuitive for hotel search and selection.');
 
 CREATE VIEW `available_rooms` AS
 SELECT `h`.`hotel_name`, `h`.`location`, `hrd`.`room_number`, `hrd`.`room_type`, `hrd`.`adult_price`, `hrd`.`kid_price`

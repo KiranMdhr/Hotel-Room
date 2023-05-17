@@ -4,19 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RK Hotel</title>
+    <title>Booking</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- <link rel="stylesheet" href="design.css"> -->
-</head>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-block-end: 0.5em;
+        }
+    </style>
 
 <body>
-    <?php include 'components/user_header.php'; ?>
     <?php
+    include 'components/user_header.php';
     include 'components/connect.php';
 
     $room_id = $_GET['room_id'];
@@ -77,53 +85,36 @@
     }
     ?>
 
-    <!DOCTYPE html>
-    <html>
 
-    <head>
-        <title>Booking</title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-            form {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 100%;
-            }
-        </style>
-    </head>
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Room Booking - <?php echo $room_name; ?></h2>
+            <form method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                <label for="number">Contact Number:</label>
+                <input type="text" id="number" name="number" required><br>
 
-    <body>
-        <section class="contact" id="contact">
-            <div class="container">
-                <h2>Room Booking - <?php echo $room_name; ?></h2>
-                <form method="POST">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required><br><br>
+                <label for="check_in">Check-in Date:</label>
+                <input type="date" id="check_in" name="check_in" required><br>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br><br>
-                    <label for="number">Contact Number:</label>
-                    <input type="text" id="number" name="number" required><br><br>
+                <label for="check_out">Check-out Date:</label>
+                <input type="date" id="check_out" name="check_out" required><br>
 
-                    <label for="check_in">Check-in Date:</label>
-                    <input type="date" id="check_in" name="check_in" required><br><br>
+                <label for="adults">Number of Adults:</label>
+                <input type="number" id="adults" name="adults" min="1" required><br>
 
-                    <label for="check_out">Check-out Date:</label>
-                    <input type="date" id="check_out" name="check_out" required><br><br>
+                <label for="childs">Number of Children:</label>
+                <input type="number" id="childs" name="childs" min="0" required><br>
 
-                    <label for="adults">Number of Adults:</label>
-                    <input type="number" id="adults" name="adults" min="1" required><br><br>
+                <button type="submit">Book Now</button>
+            </form>
+        </div>
+    </section>
+    <?php include 'components/footer.php'; ?>
 
-                    <label for="childs">Number of Children:</label>
-                    <input type="number" id="childs" name="childs" min="0" required><br><br>
+</body>
 
-                    <button type="submit">Book Now</button>
-                </form>
-            </div>
-        </section>
-        <?php include 'components/footer.php'; ?>
-
-    </body>
-
-    </html>
+</html>

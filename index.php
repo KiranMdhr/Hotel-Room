@@ -159,6 +159,19 @@ if (isset($_POST['send'])) {
          object-fit: cover;
          /* use object-fit to resize the images while preserving aspect ratio */
       }
+
+      .card {
+         border: none;
+      }
+
+      .row {
+         justify-content: center;
+      }
+      .gallery-image {
+   max-width: 400px;
+   max-height: 300px;
+}
+
    </style>
 </head>
 
@@ -168,7 +181,7 @@ if (isset($_POST['send'])) {
 
    <!-- home section starts  -->
 
-   <section class="home" id="home">
+   <section class="home shadow mb-4" id="home">
 
       <div class="swiper home-slider">
 
@@ -275,7 +288,7 @@ if (isset($_POST['send'])) {
 
    <!-- about section starts  -->
 
-   <section class="about" id="about">
+   <section class="about mb-4" id="about">
 
       <div class="container">
          <div class="row justify-content-between align-items-center">
@@ -294,21 +307,21 @@ if (isset($_POST['send'])) {
 
       <div class="container">
          <div class="row">
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/roomm.jpg" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">100+ ROOMS</h5>
                </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/customer.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">100+ Customers</h5>
                </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/support.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">100+ Staffs</h5>
@@ -316,30 +329,28 @@ if (isset($_POST['send'])) {
             </div>
 
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/review.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">100+ Reviews</h5>
                </div>
             </div>
-         </div>
 
-         <div class="row">
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/roomm.jpg" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">Food & Drinks</h5>
                </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/pool.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">Swimming</h5>
                </div>
             </div>
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/support.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">Beach View</h5>
@@ -347,213 +358,30 @@ if (isset($_POST['send'])) {
             </div>
 
 
-            <div class="card" style="width: 18rem;">
+            <div class="card shadow me-4 mb-4" style="width: 18rem;">
                <img src="images/gym.png" class="card-img-top" alt="...">
                <div class="card-body">
                   <h5 class="card-title">Gym<Span></Span></h5>
                </div>
             </div>
          </div>
-
-
-
-
       </div>
    </section>
 
    <!-- about section ends -->
 
-   <!-- services section starts  -->
-
-   <!-- <section class="services">
-
-   <div class="box-container">
-
-      <div class="box">
-         <img src="images/icon-1.png" alt="">
-         <h3>food & drinks</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-      <div class="box">
-         <img src="images/icon-2.png" alt="">
-         <h3>outdoor dining</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-      <div class="box">
-         <img src="images/icon-3.png" alt="">
-         <h3>beach view</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-      <div class="box">
-         <img src="images/icon-4.png" alt="">
-         <h3>decorations</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-      <div class="box">
-         <img src="images/icon-5.png" alt="">
-         <h3>swimming pool</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-      <div class="box">
-         <img src="images/icon-6.png" alt="">
-         <h3>resort beach</h3>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, sunt?</p>
-      </div>
-
-   </div>
-
-</section> -->
-
-   <!-- services section ends -->
-
-   <!-- reservation section starts  -->
-
-   <section class="reservation" id="reservation">
-
-      <form action="" method="post">
-         <div class="form-group">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" required class="input">
-         </div>
-         <div class="form-group">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" name="email" maxlength="50" required class="input">
-         </div>
-         <div class="form-group">
-            <label for="Phoneno" class="form-label">Phone No</label>
-            <input type="number" name="number" maxlength="10" min="0" max="9999999999" required class="input">
-         </div>
-
-         <div class="form-group">
-            <label for="exampleFormControlSelect1"></label>Select Rooms</label>
-            <select name="rooms" class="input" required>
-               <option value="1" selected>1 room</option>
-               <option value="2">2 rooms</option>
-               <option value="3">3 rooms</option>
-               <option value="4">4 rooms</option>
-               <option value="5">5 rooms</option>
-               <option value="6">6 rooms</option>
-            </select>
-         </div>
-         <div class="form-group">
-            <p>Check In<span>*</span></p>
-            <input type="date" name="check_in" class="input" required>
-         </div>
-         <div class="form-group">
-            <p>Check Out<span>*</span></p>
-            <input type="date" name="check_out" class="input" required>
-         </div>
-
-         <div class="form-group">
-            <p>Adults <span>*</span></p>
-            <select name="adults" class="input" required>
-               <option value="1" selected>1 adult</option>
-               <option value="2">2 adults</option>
-               <option value="3">3 adults</option>
-               <option value="4">4 adults</option>
-               <option value="5">5 adults</option>
-               <option value="6">6 adults</option>
-            </select>
-         </div>
-
-         <div class="form-group">
-            <p>Childs <span>*</span></p>
-            <select name="childs" class="input" required>
-               <option value="0" selected>0 child</option>
-               <option value="1">1 child</option>
-               <option value="2">2 childs</option>
-               <option value="3">3 childs</option>
-               <option value="4">4 childs</option>
-               <option value="5">5 childs</option>
-               <option value="6">6 childs</option>
-            </select>
-         </div>
-         <input type="submit" value="book now" name="book" class="btn text-white shadow-none custom-bg">
-      </form>
-
-      <!-- 
-   <form action="" method="post"class>
-      <h3>make a reservation</h3>
-         <div class="mb-3"> 
-            <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" required  class="input">
-         </div>
-         <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" name="email" maxlength="50" required  class="input">
-  </div>
-  <div class="mb-3">
-    <label for="Phoneno" class="form-label">Phone No</label>
-    <input type="number" name="number" maxlength="10" min="0" max="9999999999" required " class="input">
-  </div>
-        
-         <div class=" mb-3 box">
-            <p>Rooms <span>*</span></p>
-            <select name="rooms" class="input" required>
-               <option value="1" selected>1 room</option>
-               <option value="2">2 rooms</option>
-               <option value="3">3 rooms</option>
-               <option value="4">4 rooms</option>
-               <option value="5">5 rooms</option>
-               <option value="6">6 rooms</option>
-            </select>
-         </div>
-         <div class="mb-3 box">
-            <p>Check In<span>*</span></p>
-            <input type="date" name="check_in" class="input" required>
-         </div>
-         <div class="box">
-            <p>Check Out <span>*</span></p>
-            <input type="date" name="check_out" class="input" required>
-         </div>
-         <div class="mb-3 box">
-            <p>Adults <span>*</span></p>
-            <select name="adults" class="input" required>
-               <option value="1" selected>1 adult</option>
-               <option value="2">2 adults</option>
-               <option value="3">3 adults</option>
-               <option value="4">4 adults</option>
-               <option value="5">5 adults</option>
-               <option value="6">6 adults</option>
-            </select>
-         </div>
-         <div class="mb-3 box">
-            <p>Childs <span>*</span></p>
-            <select name="childs" class="input" required>
-               <option value="0" selected>0 child</option>
-               <option value="1">1 child</option>
-               <option value="2">2 childs</option>
-               <option value="3">3 childs</option>
-               <option value="4">4 childs</option>
-               <option value="5">5 childs</option>
-               <option value="6">6 childs</option>
-            </select>
-         </div>
-      </div>
-      <input type="submit" value="book now" name="book" class="btn text-white shadow-none custom-bg">
-   </form> -->
-
-   </section>
-
-   <!-- reservation section ends -->
-
    <!-- gallery section starts  -->
 
-   <section class="gallery" id="gallery">
+   <section class="gallery shadow mb-4" id="gallery">
 
       <div class="swiper gallery-slider">
          <div class="swiper-wrapper">
-            <img src="images/gallery-img-1.jpg" class="swiper-slide" alt="">
-            <img src="images/gallery-img-2.webp" class="swiper-slide" alt="">
-            <img src="images/gallery-img-3.webp" class="swiper-slide" alt="">
-            <img src="images/gallery-img-4.webp" class="swiper-slide" alt="">
-            <img src="images/gallery-img-5.webp" class="swiper-slide" alt="">
-            <img src="images/gallery-img-6.webp" class="swiper-slide" alt="">
+            <img src="images/gallery-img-1.jpg" class="swiper-slide gallery-image" alt="">
+            <img src="images/gallery-img-2.webp" class="swiper-slide gallery-image" alt="">
+            <img src="images/gallery-img-3.webp" class="swiper-slide gallery-image" alt="">
+            <img src="images/gallery-img-4.webp" class="swiper-slide gallery-image" alt="">
+            <img src="images/gallery-img-5.webp" class="swiper-slide gallery-image" alt="">
+            <img src="images/gallery-img-6.webp" class="swiper-slide gallery-image" alt="">
          </div>
          <div class="swiper-pagination"></div>
       </div>
@@ -565,74 +393,74 @@ if (isset($_POST['send'])) {
    <!-- contact section starts  -->
 
    <section class="contact" id="contact">
-   <div class="container">
-      <div class="row bg-white shadow">
-         <form action="" method="post" class="mb-3 ms-5">
-            <h3 class="bold mt-4">Send Us a Message</h3>
-            <div class="row align-items-end">
-               <div class="col-md-6">
-                  <label class="form-label" style="font-weight: 500;">Check-in</label>
-                  <input type="date" class="form-control shadow-none">
+      <div class="container">
+         <div class="row bg-white shadow">
+            <form action="" method="post" class="mb-3">
+               <h3 class="bold mt-4">Send Us a Message</h3>
+               <div class="row align-items-end">
+                  <div class="col-md-6">
+                     <label class="form-label" style="font-weight: 500;">Check-in</label>
+                     <input type="date" class="form-control shadow-none">
+                  </div>
+                  <div class="col-md-6">
+                     <label for="name" style="font-weight: 500;">Name</label>
+                     <input type="text" name="name" required maxlength="50" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                     <label for="email" style="font-weight: 500;">Email</label>
+                     <input type="email" name="email" required maxlength="50" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                     <label for="number" style="font-weight: 500;">Phone No</label>
+                     <input type="tel" name="number" required maxlength="10" class="form-control">
+                  </div>
+                  <div class="col-md-12">
+                     <label for="message" style="font-weight: 500;">Message</label>
+                     <textarea name="message" class="form-control" required maxlength="1000" rows="5"></textarea>
+                  </div>
+                  <div class="col-md-12 mt-3">
+                     <input type="submit" value="Submit" name="send" class="btn btn-primary">
+                  </div>
                </div>
-               <div class="col-md-6">
-                  <label for="name" style="font-weight: 500;">Name</label>
-                  <input type="text" name="name" required maxlength="50" class="form-control">
-               </div>
-               <div class="col-md-6">
-                  <label for="email" style="font-weight: 500;">Email</label>
-                  <input type="email" name="email" required maxlength="50" class="form-control">
-               </div>
-               <div class="col-md-6">
-                  <label for="number" style="font-weight: 500;">Phone No</label>
-                  <input type="tel" name="number" required maxlength="10" class="form-control">
-               </div>
-               <div class="col-md-12">
-                  <label for="message" style="font-weight: 500;">Message</label>
-                  <textarea name="message" class="form-control" required maxlength="1000" rows="5"></textarea>
-               </div>
-               <div class="col-md-12 mt-3">
-                  <input type="submit" value="Submit" name="send" class="btn btn-primary">
-               </div>
-            </div>
-         </form>
+            </form>
+         </div>
       </div>
-   </div>
-</section>
+   </section>
 
 
 
    <!-- contact section ends -->
 
    <section class="hotels mt-5" id="hotels">
-   <div class="container mt-2">
-      <div class="row">
-         <?php
-         // Fetch hotel details from the database
-         $fetch_hotels = $conn->query("SELECT * FROM hotel_details");
-         while ($hotel = $fetch_hotels->fetch(PDO::FETCH_ASSOC)) {
-            $hotel_id = $hotel['hotel_id'];
-            $hotel_name = $hotel['hotel_name'];
-            $location = $hotel['location'];
-            $description = $hotel['description'];
-         ?>
-            <div class="col-md-3 col-sm-6">
-               <div class="card card-block">
-                  <img src="images/<?php echo $hotel_name; ?>.jpg" alt="Photo of sunset">
-                  <h5 class="card-title mt-3 mb-3"><?php echo $hotel_name; ?></h5>
-                  <p class="card-text"><?php echo $description; ?></p>
-                  <p class="card-location">Location: <?php echo $location; ?></p>
-                  <form action="cards.php" method="post">
-                     <input type="hidden" name="hotel_id" value="<?php echo $hotel_id; ?>">
-                     <button type="submit" class="btn btn-primary">View Rooms</button>
-                  </form>
+      <div class="container mt-2">
+         <div class="row">
+            <?php
+            // Fetch hotel details from the database
+            $fetch_hotels = $conn->query("SELECT * FROM hotel_details");
+            while ($hotel = $fetch_hotels->fetch(PDO::FETCH_ASSOC)) {
+               $hotel_id = $hotel['hotel_id'];
+               $hotel_name = $hotel['hotel_name'];
+               $location = $hotel['location'];
+               $description = $hotel['description'];
+            ?>
+               <div class="col-md-3 col-sm-6 shadow">
+                  <div class="card card-block">
+                     <img src="images/<?php echo $hotel_name; ?>.jpg" alt="Photo of sunset">
+                     <h5 class="card-title m-3"><?php echo $hotel_name; ?></h5>
+                     <p class="card-text m-3"><?php echo $description; ?></p>
+                     <p class="card-location m-3">Location: <?php echo $location; ?></p>
+                     <form action="cards.php" method="post">
+                        <input type="hidden" name="hotel_id" value="<?php echo $hotel_id; ?>">
+                        <button type="submit" class="btn btn-primary m-3">View Rooms</button>
+                     </form>
+                  </div>
                </div>
-            </div>
-         <?php
-         }
-         ?>
+            <?php
+            }
+            ?>
+         </div>
       </div>
-   </div>
-</section>
+   </section>
 
 
 
@@ -640,120 +468,122 @@ if (isset($_POST['send'])) {
    <!-- reviews section starts  -->
 
    <section class="reviews" id="reviews">
-      <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font ">Reviews</h2>
+      <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">Reviews</h2>
 
       <div class="container">
 
          <div class="swiper testimonials">
             <div class="swiper-wrapper mb-5">
 
-               <div class="swiper-slide bg-white p-4">
-                  <div class="profiles d-flex align-items-center p-4">
-                     <img src="" width="30px">
-                     <h6 class="m-0 ms-2">Random Users</h6>
-                  </div>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Hic culpa adipisci nisi praesentium velit dolor veritatis consectetur.
-                     Facilis dolorem quas expedita, impedit aliquam labore quaerat quod nam error sint atque.
-                  </p>
-                  <div class="rating">
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
+               <?php
+               // Prepare and execute the query
+               $sql = "SELECT s.review_id, a.name, s.rating, s.comment
+                    FROM site_reviews s
+                    INNER JOIN account_details a ON s.user_id = a.id";
+               $stmt = $conn->prepare($sql);
+               $stmt->execute();
 
+               // Fetch reviews
+               $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+               // Display reviews
+               foreach ($reviews as $row) {
+                  $reviewId = $row['review_id'];
+                  $username = $row['name'];
+                  $rating = $row['rating'];
+                  $comment = $row['comment'];
+               ?>
+                  <div class="swiper-slide bg-white p-4">
+                     <div class="profiles d-flex align-items-center p-4">
+                        <img src="" width="30px">
+                        <h6 class="m-0 ms-2"><?php echo $username; ?></h6>
+                     </div>
+                     <p>
+                        <?php echo $comment; ?>
+                     </p>
+                     <div class="rating">
+                        <?php
+                        for ($i = 1; $i <= 5; $i++) {
+                           if ($i <= $rating) {
+                              echo '<i class="bi bi-star-fill text-warning"></i>';
+                           } else {
+                              echo '<i class="bi bi-star"></i>';
+                           }
+                        }
+                        ?>
+                     </div>
                   </div>
-               </div>
-               <div class="swiper-slide bg-white p-4">
-                  <div class="profiles d-flex align-items-center p-4">
-                     <img src="" width="30px">
-                     <h6 class="m-0 ms-2">Random Users</h6>
-                  </div>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Hic culpa adipisci nisi praesentium velit dolor veritatis consectetur.
-                     Facilis dolorem quas expedita, impedit aliquam labore quaerat quod nam error sint atque.
-                  </p>
-                  <div class="rating">
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-
-
-                  </div>
-               </div>
-               <div class="swiper-slide bg-white p-4">
-                  <div class="profiles d-flex align-items-center mb-3">
-                     <img src="" width="30px">
-                     <h6 class="m-0 ms-2">Random Users</h6>
-                  </div>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                     Hic culpa adipisci nisi praesentium velit dolor veritatis consectetur.
-                     Facilis dolorem quas expedita, impedit aliquam labore quaerat quod nam error sint atque.
-                  </p>
-                  <div class="rating">
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-                     <i class="bi bi-star-fill text-warning"></i>
-
-
-                  </div>
-               </div>
+               <?php
+               }
+               ?>
 
             </div>
             <div class="swiper-pagination"></div>
          </div>
       </div>
    </section>
+
    <?php include 'components/footer.php'; ?>
    <!-- reviews section ends  -->
 
 
    <script>
       var swiper = new Swiper(".testimonials", {
-  effect: "coverflow",
-  grabCursor: true,
-  centeredSlides: true,
-  slidesPerView: "3",
-  loop: true,
-  coverflowEffect: {
-    rotate: 50,
-    stretch: 0,
-    depth: 100,
-    modifier: 1,
-    slideShadows: false,
-  },
-  pagination: {
-    el: ".swiper-pagination",
-  },
-  autoplay: {
-    delay: 2000,
-    disableOnInteraction: false,
-  },
-  breakpoints: {
-    320: {
-      slidesPerView: 1,
-    },
-    640: {
-      slidesPerView: 1,
-    },
-    768: {
-      slidesPerView: 2,
-    },
-    1024: {
-      slidesPerView: 3,
-    },
-  },
-});
-
+         effect: "coverflow",
+         grabCursor: true,
+         centeredSlides: true,
+         slidesPerView: "3",
+         loop: true,
+         coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+         },
+         pagination: {
+            el: ".swiper-pagination",
+         },
+         autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+         },
+         breakpoints: {
+            320: {
+               slidesPerView: 1,
+            },
+            640: {
+               slidesPerView: 1,
+            },
+            768: {
+               slidesPerView: 2,
+            },
+            1024: {
+               slidesPerView: 3,
+            },
+         },
+      });
+      var swiper = new Swiper(".gallery-slider", {
+         loop: true,
+         effect: "coverflow",
+         slidesPerView: "auto",
+         centeredSlides: true,
+         grabCursor: true,
+         coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2,
+            slideShadows: true,
+         },
+         pagination: {
+            el: ".swiper-pagination",
+         },
+         autoplay: {
+            delay: 1000,
+            disableOnInteraction: false,
+         },
+      });
    </script>
 
    <script>

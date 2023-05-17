@@ -32,8 +32,10 @@
           <li class="nav-item">
             <a class="nav-link me-2" href="bookings.php">My Bookings</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link me-2" class="btn btn-primary" href="login_register.php">Login / Register</a>
+          </li>
         </ul>
       </div>
-      <button type="button" class="btn btn-primary" style="align-items: center;">Login</button>
     </div>
   </nav>
