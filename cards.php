@@ -12,15 +12,66 @@
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" href="design.css"> -->
+
+    <style>
+        .card {
+            border: none;
+        }
+
+        .row {
+            justify-content: center;
+        }
+
+        .docenter {
+            justify-content: center;
+            display: flex;
+        }
+
+        .card-text {
+            height: 5em;
+            /* Adjust the height as needed */
+            overflow: hidden;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hover-prompt {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .btn:hover .hover-prompt {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-<?php include 'components/user_header.php'; ?>
 
     <?php
+    session_start();
+    include 'components/user_header.php';
+
     include 'components/connect.php';
 
     $hotel_id = $_POST['hotel_id'];
+
+
+    $isLoggedIn = isset($_SESSION['name']);
+
 
     // Fetch hotel details based on the selected hotel_id
     $fetch_hotel = $conn->prepare("SELECT * FROM hotel_details WHERE hotel_id = :hotel_id");
@@ -49,6 +100,7 @@
                 <div class="row">';
 
             while ($room = $fetch_rooms->fetch(PDO::FETCH_ASSOC)) {
+                $room_id = $room['room_id'];
                 $room_number = $room['room_number'];
                 $room_name = $room['room_name'];
                 $room_type = $room['room_type'];
@@ -56,9 +108,10 @@
                 $kid_price = $room['kid_price'];
                 $description = $room['description'];
 
+
                 // Generate the content for each room card
                 echo '
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-3 col-sm-6 me-4 mb-4 shadow">
                 <div class="card card-block">
                     <img src="images/' . $hotel_name . '.jpg" alt="Photo of sunset">
                     <h5 class="card-title mt-3 mb-3">' . $room_name . '</h5>
@@ -67,9 +120,16 @@
                     <p class="card-location">Room Type: ' . $room_type . '</p>
                     <p class="card-location">Adult Price: ' . $adult_price . '</p>
                     <p class="card-location">Kid Price: ' . $kid_price . '</p>
-                    <button onclick="window.location.href=\'booking.php?room_id=' . $room['room_id'] . '\';">
-                        Book Now
-                    </button>
+
+                    <form action="booking.php" method="get">
+                        <input type="hidden" name="room_id" value="' . $room_id . '">
+                        <input type="hidden" name="hotel_name" value="' . $hotel_name . '">
+
+                        <button type="submit" class="btn btn-primary m-3">
+                            Book Room
+                            <span class="hover-prompt" style="display:none;">Please login</span>
+                        </button>
+                     </form>
                 </div>
             </div>';
             }
@@ -85,7 +145,30 @@
         echo '<p>Invalid hotel selected</p>';
     }
     ?>
-   <?php include 'components/footer.php'; ?>
+
+    <?php include 'components/footer.php'; ?>
+    <script>
+        const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+        if (!isLoggedIn) {
+            const btns = document.querySelectorAll('.btn');
+            btns.forEach((btn) => {
+                btn.addEventListener('mouseenter', () => {
+                    const prompt = btn.querySelector('.hover-prompt');
+                    prompt.style.display = 'block';
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    const prompt = btn.querySelector('.hover-prompt');
+                    prompt.style.display = 'none';
+                });
+
+                btn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                });
+            });
+        }
+    </script>
+    </script>
 
 </body>
 

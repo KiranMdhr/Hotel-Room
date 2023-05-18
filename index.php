@@ -1,7 +1,7 @@
 <?php
 
 include 'components/connect.php';
-
+session_start();
 if (isset($_COOKIE['user_id'])) {
    $user_id = $_COOKIE['user_id'];
 } else {
@@ -167,11 +167,44 @@ if (isset($_POST['send'])) {
       .row {
          justify-content: center;
       }
-      .gallery-image {
-   max-width: 400px;
-   max-height: 300px;
-}
 
+      .gallery-image {
+         max-width: 400px;
+         max-height: 300px;
+      }
+
+      .card-text {
+         height: 8em;
+         /* Adjust the height as needed */
+         overflow: hidden;
+      }
+
+      .card-location {
+         height: 3em;
+         /* Adjust the height as needed */
+         overflow: hidden;
+      }
+      @media (min-width: 1000px){
+      .card-text {
+         height: 16em;
+         /* Adjust the height as needed */
+         overflow: hidden;
+      }
+      }
+      @media (min-width: 768px){
+      .card-text {
+         height: 16em;
+         /* Adjust the height as needed */
+         overflow: hidden;
+      }
+      }
+      @media (min-width: 576px){
+      .card-text {
+         height: 8em;
+         /* Adjust the height as needed */
+         overflow: hidden;
+      }
+      }
    </style>
 </head>
 
@@ -398,13 +431,9 @@ if (isset($_POST['send'])) {
             <form action="" method="post" class="mb-3">
                <h3 class="bold mt-4">Send Us a Message</h3>
                <div class="row align-items-end">
-                  <div class="col-md-6">
-                     <label class="form-label" style="font-weight: 500;">Check-in</label>
-                     <input type="date" class="form-control shadow-none">
-                  </div>
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                      <label for="name" style="font-weight: 500;">Name</label>
-                     <input type="text" name="name" required maxlength="50" class="form-control">
+                     <input type="text" name="name" required maxlength="50" class="form-control" value="<?php echo $_SESSION['name'];?>">
                   </div>
                   <div class="col-md-6">
                      <label for="email" style="font-weight: 500;">Email</label>
@@ -443,7 +472,7 @@ if (isset($_POST['send'])) {
                $location = $hotel['location'];
                $description = $hotel['description'];
             ?>
-               <div class="col-md-3 col-sm-6 shadow">
+               <div class="col-md-3 col-sm-6 me-4 mb-4 shadow">
                   <div class="card card-block">
                      <img src="images/<?php echo $hotel_name; ?>.jpg" alt="Photo of sunset">
                      <h5 class="card-title m-3"><?php echo $hotel_name; ?></h5>

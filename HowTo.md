@@ -154,7 +154,7 @@ VALUES
     (10, 7, 3, 'The user interface could be more intuitive for hotel search and selection.');
 
 CREATE VIEW `available_rooms` AS
-SELECT `h`.`hotel_name`, `h`.`location`, `hrd`.`room_number`, `hrd`.`room_type`, `hrd`.`adult_price`, `hrd`.`kid_price`
+SELECT `h`.`hotel_id`, `h`.`hotel_name`, `h`.`location`, `hrd`.`room_number`, `hrd`.`room_type`, `hrd`.`adult_price`, `hrd`.`kid_price`
 FROM `hotel_details` `h`
 INNER JOIN `hotel_room_details` `hrd` ON `h`.`hotel_id` = `hrd`.`hotel_id`
 WHERE `hrd`.`is_booked` = 0;
