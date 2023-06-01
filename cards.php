@@ -113,7 +113,7 @@
                 echo '
             <div class="col-md-3 col-sm-6 me-4 mb-4 shadow">
                 <div class="card card-block">
-                    <img src="images/' . $hotel_name . '.jpg" alt="Photo of sunset">
+                    <img src="images/rooms/' . $hotel_name . '/' . $room_id . '.jpg" alt="' . $room_name. '">
                     <h5 class="card-title mt-3 mb-3">' . $room_name . '</h5>
                     <p class="card-text">' . $description . '</p>
                     <p class="card-location">Room Number: ' . $room_number . '</p>
@@ -125,7 +125,7 @@
                         <input type="hidden" name="room_id" value="' . $room_id . '">
                         <input type="hidden" name="hotel_name" value="' . $hotel_name . '">
 
-                        <button type="submit" class="btn btn-primary m-3">
+                        <button type="submit" class="btn btn-primary m-3 what">
                             Book Room
                             <span class="hover-prompt" style="display:none;">Please login</span>
                         </button>
@@ -150,7 +150,7 @@
     <script>
         const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
         if (!isLoggedIn) {
-            const btns = document.querySelectorAll('.btn');
+            const btns = document.querySelectorAll('.what');
             btns.forEach((btn) => {
                 btn.addEventListener('mouseenter', () => {
                     const prompt = btn.querySelector('.hover-prompt');
