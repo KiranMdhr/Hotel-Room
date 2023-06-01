@@ -1,10 +1,10 @@
 <?php
-    session_start();
-    if (isset($_SESSION['name'])) {
-        // Redirect to index.php
-        header('Location: index.php');
-        exit();
-    }
+session_start();
+if (isset($_SESSION['name'])) {
+    // Redirect to index.php
+    header('Location: index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,10 @@
             // Process registration data and store in the database
             $fullName = $_POST['fullName'];
             $username = $_POST['registerUsername'];
-            $password = $_POST['registerPassword'];
+            $pass = $_POST['registerPassword'];
+            $pass = filter_var($pass, FILTER_SANITIZE_STRING);
+            $c_pass = sha1($_POST['c_pass']);
+            $password = filter_var($c_pass, FILTER_SANITIZE_STRING);
 
             $sql = "INSERT INTO account_details (name, username, password, account_type) VALUES (:name, :username, :password, 'user')";
 
@@ -55,30 +58,38 @@
         }
     }
 
-        // Check if it's a login form submission
-        if (isset($_POST['login'])) {
-            // Process login data and validate against the database
-            $username = $_POST['loginUsername'];
-            $password = $_POST['loginPassword'];
+    // Check if it's a login form submission
+    if (isset($_POST['login'])) {
+        // Process login data and validate against the database
+        $username = $_POST['loginUsername'];
+        $password = $_POST['loginPassword'];
+        $password = sha1($password);
 
-                $sql = "SELECT * FROM account_details WHERE username = :username AND password = :password";
+        $sql = "SELECT * FROM account_details WHERE username = :username AND password = :password";
 
-                // Prepare the statement
-                $stmt = $conn->prepare($sql);
-                $stmt->bindParam(':username', $username);
-                $stmt->bindParam(':password', $password);
-                $stmt->execute();
-                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Prepare the statement
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $password);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                if ($user) {
-                    $_SESSION['id'] = $user['id']; // Set the session variable 'id'
-                    $_SESSION['name'] = $username;
-                    header('Location: index.php');
-                    exit();
-                } else {
-                    echo "Invalid username or password";
-                }
+        if ($user) {
+            $_SESSION['id'] = $user['id']; // Set the session variable 'id'
+            $_SESSION['name'] = $username;
+
+            if ($user['account_type'] === 'user') {
+                header('Location: index.php');
+            } elseif ($user['account_type'] === 'admin') {
+                header('Location: admin/dashboard.php');
+            }
+
+            exit();
+        } else {
+            echo "Invalid username or password";
         }
+    }
+
     ?>
 
     <div class="section">
@@ -86,9 +97,9 @@
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center py-5">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
-                        <center>
-                            <a class="fw-bold fs-3 h-font p-5" href="index.php"><img src="images/logo.svg" alt="Logo" style="width:20vh;"></a>
-                        </center>
+                            <!-- <center>
+                                <a class="fw-bold fs-3 h-font p-5" href="index.php"><img src="images/logo.svg" alt="Logo" style="width:20vh;"></a>
+                            </center> -->
                         <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
                         <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
                         <label for="reg-log"></label>

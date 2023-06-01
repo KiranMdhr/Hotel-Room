@@ -9,23 +9,22 @@ if(isset($_COOKIE['admin_id'])){
    header('location:login.php');
 }
 
-if(isset($_POST['delete'])){
-
+if (isset($_POST['delete'])) {
    $delete_id = $_POST['delete_id'];
    $delete_id = filter_var($delete_id, FILTER_SANITIZE_STRING);
 
    $verify_delete = $conn->prepare("SELECT * FROM `messages` WHERE id = ?");
    $verify_delete->execute([$delete_id]);
 
-   if($verify_delete->rowCount() > 0){
-      $delete_bookings = $conn->prepare("DELETE FROM `messages` WHERE id = ?");
-      $delete_bookings->execute([$delete_id]);
-      $success_msg[] = 'Message deleted!';
-   }else{
-      $warning_msg[] = 'Message deleted already!';
+   if ($verify_delete->rowCount() > 0) {
+       $delete_messages = $conn->prepare("DELETE FROM `messages` WHERE id = ?");
+       $delete_messages->execute([$delete_id]);
+       $success_msg[] = 'Message deleted!';
+   } else {
+       $warning_msg[] = 'Message not found!';
    }
-
 }
+
 
 ?>
 

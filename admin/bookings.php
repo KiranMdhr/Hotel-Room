@@ -60,7 +60,7 @@ if(isset($_POST['delete'])){
    <div class="box-container">
 
    <?php
-      $select_bookings = $conn->prepare("SELECT * FROM `bookings`");
+      $select_bookings = $conn->prepare("SELECT * FROM `bookings_details`");
       $select_bookings->execute();
       if($select_bookings->rowCount() > 0){
          while($fetch_bookings = $select_bookings->fetch(PDO::FETCH_ASSOC)){
@@ -72,7 +72,6 @@ if(isset($_POST['delete'])){
       <p>number : <span><?= $fetch_bookings['number']; ?></span></p>
       <p>check in : <span><?= $fetch_bookings['check_in']; ?></span></p>
       <p>check out : <span><?= $fetch_bookings['check_out']; ?></span></p>
-      <p>rooms : <span><?= $fetch_bookings['rooms']; ?></span></p>
       <p>adults : <span><?= $fetch_bookings['adults']; ?></span></p>
       <p>childs : <span><?= $fetch_bookings['childs']; ?></span></p>
       <form action="" method="POST">

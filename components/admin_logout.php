@@ -1,9 +1,13 @@
 <?php
+    session_start();
 
-include 'connect.php';
+    // Unset all of the session variables
+    $_SESSION = array();
 
-setcookie('admin_id', '', time() - 1, '/');
+    // Destroy the session
+    session_destroy();
 
-header('location:../admin/login.php');
-
+    // Redirect to the login page or any other desired page
+    header('Location: ../login_register.php');
+    exit();
 ?>

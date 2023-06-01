@@ -2,44 +2,46 @@
 
 include '../components/connect.php';
 
-if(isset($_COOKIE['admin_id'])){
+if (isset($_COOKIE['admin_id'])) {
    $admin_id = $_COOKIE['admin_id'];
-}else{
+} else {
    $admin_id = '';
    header('location:login.php');
 }
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
 
    $id = create_unique_id();
    $name = $_POST['name'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING); 
+   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   $username = $_POST['username'];
+   $username = filter_var($username, FILTER_SANITIZE_STRING);
    $pass = sha1($_POST['pass']);
-   $pass = filter_var($pass, FILTER_SANITIZE_STRING); 
+   $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $c_pass = sha1($_POST['c_pass']);
-   $c_pass = filter_var($c_pass, FILTER_SANITIZE_STRING);   
+   $c_pass = filter_var($c_pass, FILTER_SANITIZE_STRING);
 
-   $select_admins = $conn->prepare("SELECT * FROM `admins` WHERE name = ?");
+   $select_admins = $conn->prepare("SELECT * FROM `account_details` WHERE username = ?");
    $select_admins->execute([$name]);
 
-   if($select_admins->rowCount() > 0){
+   if ($select_admins->rowCount() > 0) {
       $warning_msg[] = 'Username already taken!';
-   }else{
-      if($pass != $c_pass){
+   } else {
+      if ($pass != $c_pass) {
          $warning_msg[] = 'Password not matched!';
-      }else{
-         $insert_admin = $conn->prepare("INSERT INTO `admins`(id, name, password) VALUES(?,?,?)");
-         $insert_admin->execute([$id, $name, $c_pass]);
+      } else {
+         $insert_admin = $conn->prepare("INSERT INTO `account_details` (name, username, password, account_type) VALUES (?, ?, ?, 'admin')");
+         $insert_admin->execute([$name, $username, $c_pass]);
          $success_msg[] = 'Registered successfully!';
       }
    }
-
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,30 +55,29 @@ if(isset($_POST['submit'])){
    <link rel="stylesheet" href="../css/admin_style.css">
 
 </head>
+
 <body>
-   
-<!-- header section starts  -->
-<?php include '../components/admin_header.php'; ?>
-<!-- header section ends -->
 
-<!-- register section starts  -->
+   <!-- header section starts  -->
+   <?php include '../components/admin_header.php'; ?>
+   <!-- header section ends -->
 
-<section class="form-container">
+   <!-- register section starts  -->
 
-   <form action="" method="POST">
-      <h3>register new</h3>
-      <input type="text" name="name" placeholder="enter username" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="pass" placeholder="enter password" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="password" name="c_pass" placeholder="confirm password" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="submit" value="register now" name="submit" class="btn">
-   </form>
+   <section class="form-container">
 
-</section>
+      <form action="" method="POST">
+         <h3>register new</h3>
+         <input type="text" name="name" placeholder="Enter Name" maxlength="50" class="box" required>
+         <input type="text" name="username" placeholder="Enter Username" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="pass" placeholder="Enter Password" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="password" name="c_pass" placeholder="Confirm Password" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
+         <input type="submit" value="register now" name="submit" class="btn">
+      </form>
 
-<!-- register section ends -->
+   </section>
 
-
-
+   <!-- register section ends -->
 
 
 
@@ -92,12 +93,16 @@ if(isset($_POST['submit'])){
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-<!-- custom js file link  -->
-<script src="../js/admin_script.js"></script>
 
-<?php include '../components/message.php'; ?>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+   <!-- custom js file link  -->
+   <script src="../js/admin_script.js"></script>
+
+   <?php include '../components/message.php'; ?>
 
 </body>
+
 </html>

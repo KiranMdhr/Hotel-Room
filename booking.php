@@ -7,10 +7,13 @@
     <title>Booking</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
     <!-- <link rel="stylesheet" href="css/style.css"> -->
     <style>
         form {
@@ -21,16 +24,59 @@
             margin-block-end: 0.5em;
         }
     </style>
+    <script>
+        $(function() {
+            var dateFormat = "yy-mm-dd",
+                from = $("#check_in")
+                .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 3,
+                    dateFormat: "yy-mm-dd"
+                })
+                .on("change", function() {
+                    to.datepicker("option", "minDate", getDate(this));
+                }),
+                to = $("#check_out").datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 2,
+                    dateFormat: "yy-mm-dd"
+                })
+                .on("change", function() {
+                    from.datepicker("option", "maxDate", getDate(this));
+                });
+
+            function getDate(element) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate(dateFormat, element.value);
+                } catch (error) {
+                    date = null;
+                }
+
+                return date;
+            }
+        });
+    </script>
+
+</head>
 
 <body>
     <?php
     session_start();
-    include 'components/user_header.php';
     include 'components/connect.php';
+    include 'components/user_header.php';
 
     $room_id = $_GET['room_id'];
     $hotel_name = $_GET['hotel_name'];
-
+    $fetch_dates = $conn->prepare("SELECT check_in, check_out FROM bookings_details WHERE room_id = :room_id");
+    $fetch_dates->bindParam(':room_id', $room_id);
+    $fetch_dates->execute();
+    $dates = array();
+    while ($row = $fetch_dates->fetch(PDO::FETCH_ASSOC)) {
+        $dates[] = $row;
+    }
     // Fetch room details based on the selected room_id
     $fetch_room = $conn->prepare("SELECT * FROM hotel_room_details WHERE room_id = :room_id");
     $fetch_room->bindParam(':room_id', $room_id);
@@ -52,35 +98,46 @@
             $adults = $_POST['adults'];
             $childs = $_POST['childs'];
 
-            // Calculate total price based on the number of adults and children
-            $total_price = ($adult_price * $adults) + ($kid_price * $childs);
+            // Check if the room is already booked for the specified period
+            $check_booking = $conn->prepare("SELECT * FROM bookings_details WHERE room_id = :room_id AND (check_in <= :check_out AND check_out >= :check_in)");
+            $check_booking->bindParam(':room_id', $room_id);
+            $check_booking->bindParam(':check_in', $check_in);
+            $check_booking->bindParam(':check_out', $check_out);
+            $check_booking->execute();
 
-
-            // Insert the booking details into the database
-            $insert_booking = $conn->prepare("INSERT INTO bookings_details (user_id, hotel_id, room_id, name, email, number, check_in, check_out, adults, childs, total_price)
-            VALUES (:user_id, :hotel_id, :room_id, :name, :email, :number, :check_in, :check_out, :adults, :childs, :total_price)");
-            $insert_booking->bindParam(':user_id', $_SESSION['id']); // Assuming you have a session for the user ID
-            $insert_booking->bindParam(':hotel_id', $room['hotel_id']);
-            $insert_booking->bindParam(':room_id', $room_id);
-            $insert_booking->bindParam(':name', $name);
-            $insert_booking->bindParam(':email', $email);
-            $insert_booking->bindParam(':number', $number);
-            $insert_booking->bindParam(':check_in', $check_in);
-            $insert_booking->bindParam(':check_out', $check_out);
-            $insert_booking->bindParam(':adults', $adults);
-            $insert_booking->bindParam(':childs', $childs);
-            $insert_booking->bindParam(':total_price', $total_price);
-
-            if ($insert_booking->execute()) {
-                // Booking successful
-                $booking_id = $conn->lastInsertId(); // Get the last inserted booking ID
-    
-                // Redirect to book_success.php with booking ID and total price as query parameters
-                header('Location: book_success.php?booking_id=' . $booking_id . '&total_price=' . $total_price);
-                exit();
+            if ($check_booking->rowCount() > 0) {
+                // Room is already booked for the specified period
+                echo '<p>The room is already booked for the specified period. Please choose different dates.</p>';
             } else {
-                // Booking failed
-                echo '<p>Booking failed. Please try again later.</p>';
+                // Calculate total price based on the number of adults and children
+                $total_price = ($adult_price * $adults) + ($kid_price * $childs);
+
+                // Insert the booking details into the database
+                $insert_booking = $conn->prepare("INSERT INTO bookings_details (user_id, hotel_id, room_id, name, email, number, check_in, check_out, adults, childs, total_price)
+            VALUES (:user_id, :hotel_id, :room_id, :name, :email, :number, :check_in, :check_out, :adults, :childs, :total_price)");
+                $insert_booking->bindParam(':user_id', $_SESSION['id']); // Assuming you have a session for the user ID
+                $insert_booking->bindParam(':hotel_id', $room['hotel_id']);
+                $insert_booking->bindParam(':room_id', $room_id);
+                $insert_booking->bindParam(':name', $name);
+                $insert_booking->bindParam(':email', $email);
+                $insert_booking->bindParam(':number', $number);
+                $insert_booking->bindParam(':check_in', $check_in);
+                $insert_booking->bindParam(':check_out', $check_out);
+                $insert_booking->bindParam(':adults', $adults);
+                $insert_booking->bindParam(':childs', $childs);
+                $insert_booking->bindParam(':total_price', $total_price);
+
+                if ($insert_booking->execute()) {
+                    // Booking successful
+                    $booking_id = $conn->lastInsertId(); // Get the last inserted booking ID
+
+                    // Redirect to book_success.php with booking ID and total price as query parameters
+                    header('Location: book_success.php?booking_id=' . $booking_id . '&total_price=' . $total_price);
+                    exit();
+                } else {
+                    // Booking failed
+                    echo '<p>Booking failed. Please try again later.</p>';
+                }
             }
         }
     } else {
@@ -106,12 +163,10 @@
                     <input type="text" class="form-control" id="number" name="number" required>
                 </div>
                 <div class="mb-3">
-                    <label for="check_in" class="form-label">Check-in Date:</label>
-                    <input type="date" class="form-control" id="check_in" name="check_in" required>
-                </div>
-                <div class="mb-3">
-                    <label for="check_out" class="form-label">Check-out Date:</label>
-                    <input type="date" class="form-control" id="check_out" name="check_out" required>
+                    <label for="check_in">Check-in Date:</label>
+                    <input type="text" id="check_in" name="check_in" required>
+                    <label for="check_out">Check-out Date:</label>
+                    <input type="text" id="check_out" name="check_out" required>
                 </div>
                 <div class="mb-3">
                     <label for="adults" class="form-label">Number of Adults:</label>
@@ -125,17 +180,10 @@
             </form>
         </div>
     </section>
-    <script>
-        // Get the current date
-        var today = new Date().toISOString().split('T')[0];
-        // Set the minimum value for check-in date
-        document.getElementById('check_in').setAttribute('min', today);
 
-        // Disable past dates and occupied dates in the check-out date input
-        document.getElementById('check_in').addEventListener('change', function() {
-            var checkInDate = this.value;
-            document.getElementById('check_out').setAttribute('min', checkInDate);
-        });
+
+    <script src="js/booking.js">
+
     </script>
     <?php include 'components/footer.php'; ?>
 

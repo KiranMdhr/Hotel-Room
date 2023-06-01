@@ -109,7 +109,7 @@ if (isset($_POST['send'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>RK Hotel</title>
+   <title>Hotel</title>
 
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -323,7 +323,7 @@ if (isset($_POST['send'])) {
 
    <section class="about mb-4" id="about">
 
-      <div class="container">
+      <!-- <div class="container">
          <div class="row justify-content-between align-items-center">
             <div class="col-lg-6 col-md-5 mb-4 order-lg-1 order-2">
                <h3 class="mb-3">Lorem ipsum dolor sit.</h3>
@@ -334,7 +334,7 @@ if (isset($_POST['send'])) {
             <div class="col-lg-5 col-md-5 mb-4 order-lg-2 order-1"></div>
             <img src="images/about.jpg" class="w-100">
          </div>
-      </div>
+      </div> -->
 
 
 
@@ -433,7 +433,7 @@ if (isset($_POST['send'])) {
                <div class="row align-items-end">
                   <div class="col-md-12">
                      <label for="name" style="font-weight: 500;">Name</label>
-                     <input type="text" name="name" required maxlength="50" class="form-control" value="<?php echo $_SESSION['name'];?>">
+                     <input type="text" name="name" required maxlength="50" class="form-control" value="<?php if(isset($_SESSION['name'])){echo $_SESSION['name'];}?>">
                   </div>
                   <div class="col-md-6">
                      <label for="email" style="font-weight: 500;">Email</label>

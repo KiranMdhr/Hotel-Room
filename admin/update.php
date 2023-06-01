@@ -1,7 +1,10 @@
 <?php
 
 include '../components/connect.php';
-
+session_start();
+if (isset($_SESSION['id'])) {
+   $user_id = $_SESSION['id'];
+}
 if(isset($_COOKIE['admin_id'])){
    $admin_id = $_COOKIE['admin_id'];
 }else{
@@ -9,8 +12,8 @@ if(isset($_COOKIE['admin_id'])){
    header('location:login.php');
 }
 
-$select_profile = $conn->prepare("SELECT * FROM `admins` WHERE id = ? LIMIT 1");
-$select_profile->execute([$admin_id]);
+$select_profile = $conn->prepare("SELECT * FROM `account_details` WHERE id = ?");
+$select_profile->execute([$user_id]);
 $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
 
 if(isset($_POST['submit'])){
@@ -19,12 +22,12 @@ if(isset($_POST['submit'])){
    $name = filter_var($name, FILTER_SANITIZE_STRING); 
 
    if(!empty($name)){
-      $verify_name = $conn->prepare("SELECT * FROM `admins` WHERE name = ?");
+      $verify_name = $conn->prepare("SELECT * FROM `account_details` WHERE name = ?");
       $verify_name->execute([$name]);
       if($verify_name->rowCount() > 0){
          $warning_msg[] = 'Username already taken!';
       }else{
-         $update_name = $conn->prepare("UPDATE `admins` SET name = ? WHERE id = ?");
+         $update_name = $conn->prepare("UPDATE `account_details` SET name = ? WHERE id = ?");
          $update_name->execute([$name, $admin_id]);
          $success_msg[] = 'Username updated!';
       }
@@ -46,8 +49,8 @@ if(isset($_POST['submit'])){
          $warning_msg[] = 'New password not matched!';
       }else{
          if($new_pass != $empty_pass){
-            $update_password = $conn->prepare("UPDATE `admins` SET password = ? WHERE id = ?");
-            $update_password->execute([$c_pass, $admin_id]);
+            $update_password = $conn->prepare("UPDATE `account_details` SET name = ?, password = ? WHERE id = ?");
+            $update_password->execute([$name, $c_pass, $user_id]);
             $success_msg[] = 'Password updated!';
          }else{
             $warning_msg[] = 'Please enter new password!';
@@ -86,7 +89,7 @@ if(isset($_POST['submit'])){
 
    <form action="" method="POST">
       <h3>update profile</h3>
-      <input type="text" name="name" placeholder="<?= $fetch_profile['name']; ?>" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="text" name="name" placeholder="<?= $fetch_profile['name']; ?>" maxlength="20" class="box">
       <input type="password" name="old_pass" placeholder="enter old password" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="new_pass" placeholder="enter new password" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="c_pass" placeholder="confirm new password" maxlength="20" class="box" oninput="this.value = this.value.replace(/\s/g, '')">
@@ -96,22 +99,6 @@ if(isset($_POST['submit'])){
 </section>
 
 <!-- update section ends -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>

@@ -1,10 +1,16 @@
 <?php
 
 include '../components/connect.php';
-
-if(isset($_COOKIE['admin_id'])){
+session_start();
+if (isset($_SESSION['id'])) {
+   $user_id = $_SESSION['id'];
+} else {
+   header('Location: login_register.php');
+   exit();
+}
+if (isset($_COOKIE['admin_id'])) {
    $admin_id = $_COOKIE['admin_id'];
-}else{
+} else {
    $admin_id = '';
    header('location:login.php');
 }
@@ -13,6 +19,7 @@ if(isset($_COOKIE['admin_id'])){
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,77 +33,72 @@ if(isset($_COOKIE['admin_id'])){
    <link rel="stylesheet" href="../css/admin_style.css">
 
 </head>
+
 <body>
-   
-<!-- header section starts  -->
-<?php include '../components/admin_header.php'; ?>
-<!-- header section ends -->
 
-<!-- dashboard section starts  -->
+   <!-- header section starts  -->
+   <?php include '../components/admin_header.php'; ?>
+   <!-- header section ends -->
 
-<section class="dashboard">
+   <!-- dashboard section starts  -->
 
-   <h1 class="heading">Dashboard</h1>
+   <section class="dashboard">
 
-   <div class="box-container">
+      <h1 class="heading">Dashboard</h1>
 
-   <div class="box">
-      <?php
-         $select_profile = $conn->prepare("SELECT * FROM `admins` WHERE id = ? LIMIT 1");
-         $select_profile->execute([$admin_id]);
-         $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
-      ?>
-      <h3>welcome!</h3>
-      <p><?= $fetch_profile['name']; ?></p>
-      <a href="update.php" class="btn">Update profile</a>
-   </div>
+      <div class="box-container">
 
-   <div class="box">
-      <?php
-         $select_bookings = $conn->prepare("SELECT * FROM `bookings`");
-         $select_bookings->execute();
-         $count_bookings = $select_bookings->rowCount();
-      ?>
-      <h3><?= $count_bookings; ?></h3>
-      <p>total bookings</p>
-      <a href="bookings.php" class="btn">View Bookings</a>
-   </div>
+         <div class="box">
+            <?php
+            $select_profile = $conn->prepare("SELECT * FROM `account_details` WHERE id = ? LIMIT 1");
+            $select_profile->execute([$user_id]);
+            $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+            ?>
+            <h3>welcome!</h3>
+            <p><?= $fetch_profile['name']; ?></p>
+            <a href="update.php" class="btn">Update profile</a>
+         </div>
 
-   <div class="box">
-      <?php
-         $select_admins = $conn->prepare("SELECT * FROM `admins`");
-         $select_admins->execute();
-         $count_admins = $select_admins->rowCount();
-      ?>
-      <h3><?= $count_admins; ?></h3>
-      <p>total admins</p>
-      <a href="admins.php" class="btn">View Admins</a>
-   </div>
+         <div class="box">
+            <?php
+            $select_bookings = $conn->prepare("SELECT * FROM `bookings_details`");
+            $select_bookings->execute();
+            $count_bookings = $select_bookings->rowCount();
+            ?>
+            <h3><?= $count_bookings; ?></h3>
+            <p>total bookings</p>
+            <a href="bookings.php" class="btn">View Bookings</a>
+         </div>
 
-   <div class="box">
-      <?php
-         $select_messages = $conn->prepare("SELECT * FROM `messages`");
-         $select_messages->execute();
-         $count_messages = $select_messages->rowCount();
-      ?>
-      <h3><?= $count_messages; ?></h3>
-      <p>total messages</p>
-      <a href="messages.php" class="btn">View Messages</a>
-   </div>
+         <div class="box">
+            <?php
+            $select_admins = $conn->prepare("SELECT * FROM `account_details` WHERE account_type = 'admin'");
+            $select_admins->execute();
+            $count_admins = $select_admins->rowCount();
+            ?>
+            <h3><?= $count_admins; ?></h3>
+            <p>total admins</p>
+            <a href="admins.php" class="btn">View Admins</a>
+         </div>
 
-   <div class="box">
-      <h3>quick select</h3>
-      <p>Login or Register</p>
-      <a href="login.php" class="btn" style="margin-right: 1rem;">Login</a>
-      <a href="register.php" class="btn" style="margin-left: 1rem;">Register</a>
-   </div>
-
-   </div>
-
-</section>
+         <div class="box">
+            <?php
+            $select_messages = $conn->prepare("SELECT * FROM `messages`");
+            $select_messages->execute();
+            $count_messages = $select_messages->rowCount();
+            ?>
+            <h3><?= $count_messages; ?></h3>
+            <p>total messages</p>
+            <a href="messages.php" class="btn">View Messages</a>
+         </div>
 
 
-<!-- dashboard section ends -->
+      </div>
+
+   </section>
+
+
+   <!-- dashboard section ends -->
 
 
 
@@ -117,12 +119,13 @@ if(isset($_COOKIE['admin_id'])){
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-<!-- custom js file link  -->
-<script src="../js/admin_script.js"></script>
+   <!-- custom js file link  -->
+   <script src="../js/admin_script.js"></script>
 
-<?php include '../components/message.php'; ?>
+   <?php include '../components/message.php'; ?>
 
 </body>
+
 </html>

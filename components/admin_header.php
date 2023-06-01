@@ -9,8 +9,6 @@
          <a href="bookings.php">Bookings</a>
          <a href="admins.php">Admins</a>
          <a href="messages.php">Messages</a>
-         <a href="register.php">Register</a>
-         <a href="login.php">Login</a>
          <a href="../components/admin_logout.php" onclick="return confirm('logout from this website?');">logout</a>
       </nav>
 

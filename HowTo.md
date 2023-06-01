@@ -5,7 +5,7 @@ Each hotel has its own table:
 hotels_table
 
 ```sql
-
+DROP DATABASE IF EXISTS hotel_db;
 CREATE DATABASE hotel_db;
 USE hotel_db;
 CREATE TABLE `account_details` (
@@ -17,16 +17,16 @@ CREATE TABLE `account_details` (
 );
 INSERT INTO `account_details` (`id`, `name`, `username`, `password`, `account_type`)
 VALUES
-    (1, 'Kiran Manandhar', 'kiran_admin', 'admin123', 'admin'),
-    (2, 'Romit Manandhar', 'romit_admin', 'admin123', 'admin'),
-    (3, 'Chandan Shakya', 'chandan_user', 'user123', 'user'),
-    (4, 'Asha Subedi', 'asha_user', 'user123', 'user'),
-    (5, 'Nabin Rai', 'nabin_user', 'user123', 'user'),
-    (6, 'Saraswati Bhandari', 'saraswati_user', 'user123', 'user'),
-    (7, 'Ramesh Gurung', 'ramesh_user', 'user123', 'user'),
-    (8, 'Sunita Thapa', 'sunita_user', 'user123', 'user'),
-    (9, 'Bijay Tamang', 'bijay_user', 'user123', 'user'),
-    (10, 'Anita Acharya', 'anita_user', 'user123', 'user');
+    (1, 'Kiran Manandhar', 'kiran_admin', SHA1('admin123'), 'admin'),
+    (2, 'Romit Manandhar', 'romit_admin', SHA1('admin123'), 'admin'),
+    (3, 'Chandan Shakya', 'chandan_user', SHA1('user123'), 'user'),
+    (4, 'Asha Subedi', 'asha_user', SHA1('user123'), 'user'),
+    (5, 'Nabin Rai', 'nabin_user', SHA1('user123'), 'user'),
+    (6, 'Saraswati Bhandari', 'saraswati_user', SHA1('user123'), 'user'),
+    (7, 'Ramesh Gurung', 'ramesh_user', SHA1('user123'), 'user'),
+    (8, 'Sunita Thapa', 'sunita_user', SHA1('user123'), 'user'),
+    (9, 'Bijay Tamang', 'bijay_user', SHA1('user123'), 'user'),
+    (10, 'Anita Acharya', 'anita_user', SHA1('user123'), 'user');
 
 CREATE TABLE `hotel_details` (
 `hotel_id` INT AUTO_INCREMENT PRIMARY KEY,
