@@ -20,13 +20,13 @@
         echo '<p>Booking ID: ' . $booking_id . '</p>';
         echo '<p>Total Price: $' . $total_price . '</p>';
         ?>
-        <p>You will be redirected to the bookings page in 10 seconds...</p>
+        <p>You will be redirected to the bookings page in 5 seconds...</p>
     </div>
 
     <script>
         setTimeout(function() {
             window.location.href = 'bookings.php';
-        }, 10000);
+        }, 5000);
     </script>
 </body>
 
