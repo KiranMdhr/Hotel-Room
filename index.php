@@ -9,27 +9,27 @@ if (isset($_COOKIE['user_id'])) {
    header('location:index.php');
 }
 
-if (isset($_POST['check'])) {
+// if (isset($_POST['check'])) {
 
-   $check_in = $_POST['check_in'];
-   $check_in = filter_var($check_in, FILTER_SANITIZE_STRING);
+//    $check_in = $_POST['check_in'];
+//    $check_in = filter_var($check_in, FILTER_SANITIZE_STRING);
 
-   $total_rooms = 0;
+//    $total_rooms = 0;
 
-   $check_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE check_in = ?");
-   $check_bookings->execute([$check_in]);
+//    $check_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE check_in = ?");
+//    $check_bookings->execute([$check_in]);
 
-   while ($fetch_bookings = $check_bookings->fetch(PDO::FETCH_ASSOC)) {
-      $total_rooms += $fetch_bookings['rooms'];
-   }
+//    while ($fetch_bookings = $check_bookings->fetch(PDO::FETCH_ASSOC)) {
+//       $total_rooms += $fetch_bookings['rooms'];
+//    }
 
-   // if the hotel has total 30 rooms 
-   if ($total_rooms >= 30) {
-      $warning_msg[] = 'rooms are not available';
-   } else {
-      $success_msg[] = 'rooms are available';
-   }
-}
+//    // if the hotel has total 30 rooms 
+//    if ($total_rooms >= 30) {
+//       $warning_msg[] = 'rooms are not available';
+//    } else {
+//       $success_msg[] = 'rooms are available';
+//    }
+// }
 
 if (isset($_POST['book'])) {
 
@@ -184,26 +184,29 @@ if (isset($_POST['send'])) {
          /* Adjust the height as needed */
          overflow: hidden;
       }
-      @media (min-width: 1000px){
-      .card-text {
-         height: 16em;
-         /* Adjust the height as needed */
-         overflow: hidden;
+
+      @media (min-width: 1000px) {
+         .card-text {
+            height: 16em;
+            /* Adjust the height as needed */
+            overflow: hidden;
+         }
       }
+
+      @media (min-width: 768px) {
+         .card-text {
+            height: 16em;
+            /* Adjust the height as needed */
+            overflow: hidden;
+         }
       }
-      @media (min-width: 768px){
-      .card-text {
-         height: 16em;
-         /* Adjust the height as needed */
-         overflow: hidden;
-      }
-      }
-      @media (min-width: 576px){
-      .card-text {
-         height: 8em;
-         /* Adjust the height as needed */
-         overflow: hidden;
-      }
+
+      @media (min-width: 576px) {
+         .card-text {
+            height: 8em;
+            /* Adjust the height as needed */
+            overflow: hidden;
+         }
       }
    </style>
 </head>
@@ -255,69 +258,10 @@ if (isset($_POST['send'])) {
 
    <!-- home section ends -->
 
-   <!-- availability section starts  -->
+   <!-- Top Hotels Rooms Section start-->
 
-   <section class="availability" id="availability">
-      <div class="row">
-         <div class="col-lg-12 bg-white shadow p-4 mb-4 mt-0 ms-2 me-50 rounded">
-            <h2 class="mb-3">Check Booking</h2>
-            <form action="" method="post">
-               <div class="row align-items-end">
-                  <div class="col-lg-3 mb-3">
-                     <label class="form-label" style="font-weight:500;">Check-in</label>
-                     <input type="date" name="check_in" class="input shadow-none" required>
-                  </div>
+   <!-- Top Hotels Rooms Section send -->
 
-                  <div class="col-lg-3 mb-3 box">
-                     <label class="form-label" style="font-weight:500;">Check-out</label>
-                     <input type="date" name="check_out" class="input shadow-none" required>
-                  </div>
-                  <div class="col-lg-3 mb-3 box">
-                     <label class="form-label" style="font-weight:500;">Adult</label>
-                     <select name="adults" class="input shadow-none" required>
-                        <option value="1">1 adult</option>
-                        <option value="2">2 adults</option>
-                        <option value="3">3 adults</option>
-                        <option value="4">4 adults</option>
-                        <option value="5">5 adults</option>
-                        <option value="6">6 adults</option>
-                     </select>
-                  </div>
-                  <div class="col-lg-3 mb-3 ">
-                     <label class="form-label" style="font-weight:500;">Children</label>
-                     <select name="childs" class="input shadow-none" required>
-                        <option value="-">0 child</option>
-                        <option value="1">1 child</option>
-                        <option value="2">2 childs</option>
-                        <option value="3">3 childs</option>
-                        <option value="4">4 childs</option>
-                        <option value="5">5 childs</option>
-                        <option value="6">6 childs</option>
-                     </select>
-                  </div>
-                  <!-- <div class="col-lg-3 mb-3 ">
-               <label class="form-label" style ="font-weight:500;">Rooms</label>
-                  <select name="rooms" class="input" required>
-                     <option value="1">1 room</option>
-                     <option value="2">2 rooms</option>
-                     <option value="3">3 rooms</option>
-                     <option value="4">4 rooms</option>
-                     <option value="5">5 rooms</option>
-                     <option value="6">6 rooms</option>
-                  </select>
-               </div> -->
-               </div>
-               <div class="col-lg-1 mb-lg-3 mt-2">
-                  <input type="submit" value="check availability" name="check" class="btn text-white shadow-none custom-bg">
-               </div>
-         </div>
-         </form>
-      </div>
-   </section>
-
-
-
-   <!-- availability section ends -->
 
    <!-- about section starts  -->
 
@@ -433,7 +377,9 @@ if (isset($_POST['send'])) {
                <div class="row align-items-end">
                   <div class="col-md-12">
                      <label for="name" style="font-weight: 500;">Name</label>
-                     <input type="text" name="name" required maxlength="50" class="form-control" value="<?php if(isset($_SESSION['name'])){echo $_SESSION['name'];}?>">
+                     <input type="text" name="name" required maxlength="50" class="form-control" value="<?php if (isset($_SESSION['name'])) {
+                                                                                                            echo $_SESSION['name'];
+                                                                                                         } ?>">
                   </div>
                   <div class="col-md-6">
                      <label for="email" style="font-weight: 500;">Email</label>

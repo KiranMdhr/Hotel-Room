@@ -33,17 +33,17 @@
             <a class="nav-link me-2" href="bookings.php">My Bookings</a>
           </li>
           <?php
-            if(isset($_SESSION['name'])) {
-              // If session is set, display Logout button
-              echo '<li class="nav-item">
+          if (isset($_SESSION['name'])) {
+            // If session is set, display Logout button
+            echo '<li class="nav-item">
                       <a class="nav-link me-2 btn btn-primary" href="components/logout.php">Logout</a>
                     </li>';
-            } else {
-              // If session is not set, display Login / Register button
-              echo '<li class="nav-item">
+          } else {
+            // If session is not set, display Login / Register button
+            echo '<li class="nav-item">
                       <a class="nav-link me-2 btn btn-primary" href="login_register.php">Login / Register</a>
                     </li>';
-            }
+          }
           ?>
         </ul>
       </div>

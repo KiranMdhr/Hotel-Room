@@ -130,9 +130,8 @@
                 if ($insert_booking->execute()) {
                     // Booking successful
                     $booking_id = $conn->lastInsertId(); // Get the last inserted booking ID
-
-                    // Redirect to book_success.php with booking ID and total price as query parameters
-                    header('Location: book_success.php?booking_id=' . $booking_id . '&total_price=' . $total_price);
+                    $redirectUrl = 'book_success.php?booking_id=' . $booking_id . '&total_price=' . $total_price;
+                    echo '<script>window.location.href = "' . $redirectUrl . '";</script>';
                     exit();
                 } else {
                     // Booking failed
