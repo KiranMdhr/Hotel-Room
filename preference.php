@@ -27,39 +27,27 @@
           <div class="form-group">
             <label for="attributes">Room Attributes:</label><br>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="wifi" id="wifi">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="WiFi" id="wifi">
               <label class="form-check-label" for="wifi">WiFi</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="parking" id="parking">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="Parking" id="parking">
               <label class="form-check-label" for="parking">Parking</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="breakfast" id="breakfast">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="Breakfast Included" id="breakfast">
               <label class="form-check-label" for="breakfast">Breakfast Included</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="wifi" id="wifi">
-              <label class="form-check-label" for="wifi">WiFi</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="parking" id="parking">
-              <label class="form-check-label" for="parking">Parking</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="breakfast" id="breakfast">
-              <label class="form-check-label" for="breakfast">Breakfast Included</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="room_service" id="room_service">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="Room Service Available" id="room_service">
               <label class="form-check-label" for="room_service">Room Service Available</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="gym_access" id="gym_access">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="Gym Access" id="gym_access">
               <label class="form-check-label" for="gym_access">Gym Access</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="attributes[]" value="swimming_pool" id="swimming_pool">
+              <input class="form-check-input" type="checkbox" name="attributes[]" value="Swimming Pool Access" id="swimming_pool">
               <label class="form-check-label" for="swimming_pool">Swimming Pool Access</label>
             </div>
             <div class="form-check">

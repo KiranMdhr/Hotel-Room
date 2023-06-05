@@ -15,8 +15,15 @@
           <div class="card-body">
             <h5 class="card-title">Selected Preferences:</h5>
             <?php
+            include_once 'components/connect.php';
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               $priceRange = $_POST['price_range'];
+              list($priceMin, $priceMax) = explode('-', $priceRange);
+
+              // Trim any leading or trailing spaces
+              $priceMin = trim($priceMin);
+              $priceMax = trim($priceMax);
+
               $roomAttributes = isset($_POST['attributes']) ? $_POST['attributes'] : [];
               $viewType = $_POST['view_type'];
 
@@ -28,7 +35,7 @@
 
               // Fetch the room details from the database
               $query = "SELECT * FROM hotel_room_details";
-              $stmt = $pdo->query($query);
+              $stmt = $conn->query($query);
 
               // Initialize an empty array to store the recommendations
               $recommendations = array();
@@ -37,37 +44,46 @@
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 // Create a new recommendation entry
                 $recommendation = array(
-                  'hotel_name' => '', // Retrieve the hotel name based on hotel_id
-                  'price_range' => '$' . $row['adult_price'] . ' - $' . $row['kid_price'],
+                  'hotel_name' => $row['hotel_id'], // Retrieve the hotel name based on hotel_id
+                  'hotel_room' => $row['room_id'],
+                  'price' => $row['adult_price'],
                   'attributes' => array(),
                   'view_type' => $row['view_type']
                 );
 
                 // Retrieve the hotel name based on hotel_id
                 $hotelQuery = "SELECT hotel_name FROM hotel_details WHERE hotel_id = :hotel_id";
-                $hotelStmt = $pdo->prepare($hotelQuery);
+                $hotelStmt = $conn->prepare($hotelQuery);
                 $hotelStmt->bindValue(':hotel_id', $row['hotel_id']);
                 $hotelStmt->execute();
                 $hotelRow = $hotelStmt->fetch(PDO::FETCH_ASSOC);
                 if ($hotelRow) {
                   $recommendation['hotel_name'] = $hotelRow['hotel_name'];
                 }
+                $attributes = array(
+                  'wifi_available' => 'WiFi',
+                  'parking_available' => 'Parking',
+                  'breakfast_included' => 'Breakfast Included',
+                  'room_service_available' => 'Room Service Available',
+                  'gym_access' => 'Gym Access',
+                  'swimming_pool_access' => 'Swimming Pool Access',
+                  'spa_services' => 'Spa Services',
+                  'laundry_services' => 'Laundry Services',
+                  'tv_available' => 'TV Available',
+                  'air_conditioning' => 'Air Conditioning',
+                  'mini_bar_available' => 'Mini Bar Available',
+                  'safe_deposit_box' => 'Safe Deposit Box',
+                  'private_bathroom' => 'Private Bathroom',
+                  'hairdryer_available' => 'Hairdryer Available',
+                  'ironing_facilities' => 'Ironing Facilities',
+                  // Add more attributes here if needed
+                );
 
                 // Set the attributes based on the room details
-                if ($row['wifi_available']) {
-                  $recommendation['attributes'][] = 'WiFi';
-                }
-                if ($row['parking_available']) {
-                  $recommendation['attributes'][] = 'Parking';
-                }
-                if ($row['breakfast_included']) {
-                  $recommendation['attributes'][] = 'Breakfast Included';
-                }
-                if ($row['swimming_pool_access']) {
-                  $recommendation['attributes'][] = 'Swimming Pool Access';
-                }
-                if ($row['gym_access']) {
-                  $recommendation['attributes'][] = 'Gym Access';
+                foreach ($attributes as $column => $attribute) {
+                  if ($row[$column]) {
+                    $recommendation['attributes'][] = $attribute;
+                  }
                 }
 
                 // Add the recommendation to the array
@@ -81,7 +97,8 @@
               $filteredRecommendations = array();
 
               foreach ($recommendations as $recommendation) {
-                if ($recommendation['price_range'] === $priceRange && in_array($viewType, $recommendation['view_type']) && count(array_intersect($attributes, $recommendation['attributes'])) === count($attributes)) {
+                $matchingAttributes = array_intersect($roomAttributes, $recommendation['attributes']);
+                if ($recommendation['price'] >= $priceMin && $recommendation['price'] <= $priceMax && $viewType === $recommendation['view_type'] && count($matchingAttributes) === count($attributes)) {
                   $filteredRecommendations[] = $recommendation;
                 }
               }
