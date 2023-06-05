@@ -32,6 +32,9 @@
           <li class="nav-item">
             <a class="nav-link me-2" href="bookings.php">My Bookings</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link me-2" href="preference.php">Prefences</a>
+          </li>
           <?php
           if (isset($_SESSION['name'])) {
             // If session is set, display Logout button
