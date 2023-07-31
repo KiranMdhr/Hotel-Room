@@ -44,7 +44,7 @@
               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 // Create a new recommendation entry
                 $recommendation = array(
-                  'hotel_name' => $row['hotel_id'], // Retrieve the hotel name based on hotel_id
+                  'hotel_name' => '',
                   'hotel_room' => $row['room_id'],
                   'price' => $row['adult_price'],
                   'attributes' => array(),
@@ -76,7 +76,7 @@
                   'private_bathroom' => 'Private Bathroom',
                   'hairdryer_available' => 'Hairdryer Available',
                   'ironing_facilities' => 'Ironing Facilities',
-                  // Add more attributes here if needed
+                  'accessible' => 'accessible'
                 );
 
                 // Set the attributes based on the room details
@@ -90,27 +90,65 @@
                 $recommendations[] = $recommendation;
               }
 
-              // Print the generated recommendations array
-              print_r($recommendations);
-
               // Filter recommendations based on user preferences
               $filteredRecommendations = array();
 
               foreach ($recommendations as $recommendation) {
-                $matchingAttributes = array_intersect($roomAttributes, $recommendation['attributes']);
-                if ($recommendation['price'] >= $priceMin && $recommendation['price'] <= $priceMax && $viewType === $recommendation['view_type'] && count($matchingAttributes) === count($attributes)) {
-                  $filteredRecommendations[] = $recommendation;
+                // Calculate similarity score based on selected attributes
+                $similarity = 0;
+                foreach ($roomAttributes as $attribute) {
+                  if (in_array($attribute, $recommendation['attributes'])) {
+                    $similarity++;
+                  }
                 }
+
+                // Adjust similarity score based on price range
+                if ($recommendation['price'] >= $priceMin && $recommendation['price'] <= $priceMax) {
+                  $similarity += 2; // You can adjust the weight for price similarity here
+                }
+
+                // Adjust similarity score based on view type
+                if ($viewType === $recommendation['view_type']) {
+                  $similarity += 1; // You can adjust the weight for view type similarity here
+                }
+
+                // Add similarity score to the recommendation array
+                $recommendation['similarity'] = $similarity;
+
+                // Add the recommendation to the array
+                $filteredRecommendations[] = $recommendation;
               }
+              usort($filteredRecommendations, function ($a, $b) {
+                return $b['similarity'] - $a['similarity'];
+              });
 
               // Display the recommendations
               if (!empty($filteredRecommendations)) {
                 echo '<div class="alert alert-success">Here are your recommendations:</div>';
-                echo '<ul class="list-group">';
                 foreach ($filteredRecommendations as $recommendation) {
-                  echo '<li class="list-group-item">' . $recommendation['hotel_name'] . '</li>';
+                  echo '<div class="card mb-3">';
+                  echo '<div class="card-header"><strong>Hotel Name:</strong> ' . $recommendation['hotel_name'] . '</div>';
+                  echo '<div class="card-body">';
+                  echo '<p class="card-text"><strong>Hotel Room Number:</strong> ' . $recommendation['hotel_room'] . '</p>';
+                  echo '<p class="card-text"><strong>Room Type:</strong> ' . $recommendation['view_type'] . '</p>';
+                  // Fetch room name based on room_id
+                  $roomNameQuery = "SELECT room_name FROM hotel_room_details WHERE room_id = :room_id";
+                  $roomNameStmt = $conn->prepare($roomNameQuery);
+                  $roomNameStmt->bindValue(':room_id', $recommendation['hotel_room']);
+                  $roomNameStmt->execute();
+                  $roomNameRow = $roomNameStmt->fetch(PDO::FETCH_ASSOC);
+                  if ($roomNameRow) {
+                    echo '<p class="card-text"><strong>Hotel Room Name:</strong> ' . $roomNameRow['room_name'] . '</p>';
+                  }
+                  // Generate URL for booking page
+                  $bookingUrl = "http://localhost/Hotel-Room/booking.php?room_id=" . $recommendation['hotel_room'] . "&hotel_name=" . urlencode($recommendation['hotel_name']);
+
+                  // Display the button with the generated URL
+                  echo '<a href="' . $bookingUrl . '" class="btn btn-primary">Book Now</a>';
+
+                  echo '</div>'; // Close card-body
+                  echo '</div>'; // Close card
                 }
-                echo '</ul>';
               } else {
                 echo '<div class="alert alert-warning">No recommendations found based on your preferences.</div>';
               }

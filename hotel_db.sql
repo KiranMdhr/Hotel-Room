@@ -36,56 +36,77 @@ VALUES
 (4, 'Malla Hotel', 'Lekhnath Marg, Kathmandu', 'Conveniently located in Kathmandu, Malla Hotel provides air-conditioned rooms with free WiFi, free private parking, and room service.');
 
 CREATE TABLE `hotel_room_details` (
-`room_id` INT PRIMARY KEY,
-`hotel_id` INT,
-`room_number` VARCHAR(10),
-`room_name` VARCHAR(30),
-`room_type` VARCHAR(20),
-`adult_price` DECIMAL(10,2),
-`kid_price` DECIMAL(10,2),
-`description` TEXT,
-`is_booked` BOOLEAN DEFAULT 0,
-FOREIGN KEY (`hotel_id`) REFERENCES `hotel_details`(`hotel_id`) ON DELETE CASCADE
+  `room_id` INT PRIMARY KEY,
+  `hotel_id` INT,
+  `room_number` VARCHAR(10),
+  `room_name` VARCHAR(30),
+  `room_type` VARCHAR(20),
+  `adult_price` DECIMAL(10,2),
+  `kid_price` DECIMAL(10,2),
+  `capacity` INT,
+  `description` TEXT,
+  `is_booked` BOOLEAN DEFAULT 0,
+  `wifi_available` BOOLEAN DEFAULT 0,
+  `parking_available` BOOLEAN DEFAULT 0,
+  `breakfast_included` BOOLEAN DEFAULT 0,
+  `room_service_available` BOOLEAN DEFAULT 0,
+  `gym_access` BOOLEAN DEFAULT 0,
+  `swimming_pool_access` BOOLEAN DEFAULT 0,
+  `spa_services` BOOLEAN DEFAULT 0,
+  `laundry_services` BOOLEAN DEFAULT 0,
+  `tv_available` BOOLEAN DEFAULT 0,
+  `air_conditioning` BOOLEAN DEFAULT 0,
+  `mini_bar_available` BOOLEAN DEFAULT 0,
+  `safe_deposit_box` BOOLEAN DEFAULT 0,
+  `private_bathroom` BOOLEAN DEFAULT 0,
+  `hairdryer_available` BOOLEAN DEFAULT 0,
+  `ironing_facilities` BOOLEAN DEFAULT 0,
+  `view_type` VARCHAR(50),
+  `floor_number` INT,
+  `accessible` BOOLEAN DEFAULT 0,
+  `additional_amenities` TEXT,
+  FOREIGN KEY (`hotel_id`) REFERENCES `hotel_details`(`hotel_id`) ON DELETE CASCADE
 );
+
 -- Insert room details for Soaltee Hotel
-INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, description, is_booked)
+INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, capacity, description, is_booked, wifi_available, parking_available, breakfast_included, room_service_available, gym_access, swimming_pool_access, spa_services, laundry_services, tv_available, air_conditioning, mini_bar_available, safe_deposit_box, private_bathroom, hairdryer_available, ironing_facilities, view_type, floor_number, `accessible`, additional_amenities)
 VALUES
-    (1, 1, '101', 'Deluxe Room', 'Standard', 100.00, 50.00, 'Spacious room with a comfortable bed.', 0),
-    (2, 1, '102', 'Executive Suite', 'Suite', 200.00, 100.00, 'Luxurious suite with separate living area.', 0),
-    (3, 1, '201', 'Family Room', 'Standard', 150.00, 75.00, 'Ideal for families with multiple beds.', 0),
-    (4, 1, '202', 'Presidential Suite', 'Suite', 500.00, 250.00, 'Opulent suite with a private jacuzzi.', 0),
-    (5, 1, '301', 'Standard Room', 'Standard', 80.00, 40.00, 'Comfortable room with essential amenities.', 0),
-    (6, 1, '302', 'Deluxe Suite', 'Suite', 250.00, 125.00, 'Elegant suite with a separate bedroom and living area.', 0);
+    (1, 1, '101', 'Deluxe Room', 'Standard', 100.00, 50.00, 2, 'Spacious room with a comfortable bed.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 1, 1, 'Free toiletries, Coffee/Tea maker'),
+    (2, 1, '102', 'Executive Suite', 'Suite', 200.00, 100.00, 3, 'Luxurious suite with separate living area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 2, 1, 'Mini Fridge, Bathrobe, Slippers'),
+    (3, 1, '201', 'Family Room', 'Standard', 150.00, 75.00, 4, 'Ideal for families with multiple beds.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Garden View', 2, 1, 'Crib available upon request'),
+    (4, 1, '202', 'Presidential Suite', 'Suite', 500.00, 250.00, 2, 'Opulent suite with a private jacuzzi.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Panoramic View', 3, 1, '24-hour butler service'),
+    (5, 1, '301', 'Standard Room', 'Standard', 80.00, 40.00, 2, 'Comfortable room with essential amenities.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 3, 1, 'Work desk, In-room safe'),
+    (6, 1, '302', 'Deluxe Suite', 'Suite', 250.00, 125.00, 3, 'Elegant suite with a separate bedroom and living area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 3, 1, 'Complimentary bottled water');
 
 -- Insert room details for Hyatt Hotel
-INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, description, is_booked)
+INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, capacity, description, is_booked, wifi_available, parking_available, breakfast_included, room_service_available, gym_access, swimming_pool_access, spa_services, laundry_services, tv_available, air_conditioning, mini_bar_available, safe_deposit_box, private_bathroom, hairdryer_available, ironing_facilities, view_type, floor_number, `accessible`, additional_amenities)
 VALUES
-    (7, 2, '103', 'Deluxe Room', 'Standard', 120.00, 60.00, 'Well-appointed room with modern amenities.', 0),
-    (8, 2, '104', 'Club Room', 'Standard', 150.00, 75.00, 'Access to exclusive club facilities.', 0),
-    (9, 2, '203', 'Executive Suite', 'Suite', 300.00, 150.00, 'Luxury suite with a separate living area.', 0),
-    (10, 2, '204', 'Presidential Suite', 'Suite', 600.00, 300.00, 'Impeccably designed suite with panoramic views.', 0),
-    (11, 2, '303', 'Standard Room', 'Standard', 100.00, 50.00, 'Comfortable room with contemporary decor.', 0),
-    (12, 2, '304', 'Junior Suite', 'Suite', 200.00, 100.00, 'Spacious suite with a sitting area and work desk.', 0);
+    (7, 2, '103', 'Deluxe Room', 'Standard', 120.00, 60.00, 2, 'Well-appointed room with modern amenities.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 1, 1, 'Minibar, Bath amenities'),
+    (8, 2, '104', 'Club Room', 'Standard', 150.00, 75.00, 2, 'Access to exclusive club facilities.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 1, 1, 'Access to Club Lounge, Evening cocktails'),
+    (9, 2, '203', 'Executive Suite', 'Suite', 300.00, 150.00, 3, 'Luxury suite with a separate living area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Panoramic View', 2, 1, 'Nespresso coffee machine'),
+    (10, 2, '204', 'Presidential Suite', 'Suite', 600.00, 300.00, 2, 'Impeccably designed suite with panoramic views.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 2, 1, 'Private balcony, Whirlpool tub'),
+    (11, 2, '303', 'Standard Room', 'Standard', 100.00, 50.00, 2, 'Comfortable room with contemporary decor.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Garden View', 3, 1, 'In-room safe, Complimentary newspapers'),
+    (12, 2, '304', 'Junior Suite', 'Suite', 200.00, 100.00, 3, 'Spacious suite with a sitting area and work desk.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 3, 1, 'Separate living room, Bathrobe');
 
 -- Insert room details for Yak & Yeti Hotel
-INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, description, is_booked)
+INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, capacity, description, is_booked, wifi_available, parking_available, breakfast_included, room_service_available, gym_access, swimming_pool_access, spa_services, laundry_services, tv_available, air_conditioning, mini_bar_available, safe_deposit_box, private_bathroom, hairdryer_available, ironing_facilities, view_type, floor_number, `accessible`, additional_amenities)
 VALUES
-    (13, 3, '105', 'Standard Room', 'Standard', 90.00, 45.00, 'Cozy room with all essential amenities.', 0),
-    (14, 3, '106', 'Deluxe Room', 'Standard', 110.00, 55.00, 'Comfortable room with a seating area.', 0),
-    (15, 3, '205', 'Executive Suite', 'Suite', 280.00, 140.00, 'Stylish suite with separate living and sleeping areas.', 0),
-    (16, 3, '206','Family Room', 'Standard', 160.00, 80.00, 'Spacious room suitable for families.', 0),
-    (17, 3, '305', 'Presidential Suite', 'Suite', 550.00, 275.00, 'Grand suite with luxurious amenities.', 0),
-    (18, 3, '306', 'Junior Suite', 'Suite', 220.00, 110.00, 'Well-appointed suite with a sitting area.', 0);
+    (13, 3, '105', 'Standard Room', 'Standard', 90.00, 45.00, 2, 'Cozy room with all essential amenities.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 1, 1, 'Tea/Coffee maker, Complimentary breakfast'),
+    (14, 3, '106', 'Deluxe Room', 'Standard', 110.00, 55.00, 2, 'Comfortable room with a seating area.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 1, 1, 'Minibar, Bathrobe, Slippers'),
+    (15, 3, '205', 'Executive Suite', 'Suite', 280.00, 140.00, 3, 'Stylish suite with separate living and sleeping areas.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Panoramic View', 2, 1, 'Private balcony, Complimentary fruit basket'),
+    (16, 3, '206','Family Room', 'Standard', 160.00, 80.00, 4, 'Spacious room suitable for families.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Garden View', 2, 1, 'Connecting rooms available upon request'),
+    (17, 3, '305', 'Presidential Suite', 'Suite', 550.00, 275.00, 2, 'Grand suite with luxurious amenities.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 3, 1, '24-hour butler service, Jacuzzi'),
+    (18, 3, '306', 'Junior Suite', 'Suite', 220.00, 110.00, 3, 'Well-appointed suite with a sitting area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 3, 1, 'Separate living room, Bathrobe');
 
 -- Insert room details for Malla Hotel
-INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, description, is_booked)
+INSERT INTO hotel_room_details (room_id, hotel_id, room_number, room_name, room_type, adult_price, kid_price, capacity, description, is_booked, wifi_available, parking_available, breakfast_included, room_service_available, gym_access, swimming_pool_access, spa_services, laundry_services, tv_available, air_conditioning, mini_bar_available, safe_deposit_box, private_bathroom, hairdryer_available, ironing_facilities, view_type, floor_number, `accessible`, additional_amenities)
 VALUES
-    (19, 4, '107', 'Deluxe Room', 'Standard', 95.00, 47.50, 'Comfortable room with modern decor.', 0),
-    (20, 4, '108', 'Superior Room', 'Standard', 105.00, 52.50, 'Spacious room with a city view.', 0),
-    (21, 4, '207', 'Executive Suite', 'Suite', 260.00, 130.00, 'Elegant suite with separate living and sleeping areas.', 0),
-    (22, 4, '208', 'Family Room', 'Standard', 140.00, 70.00, 'Ideal room for families or small groups.', 0),
-    (23, 4, '307', 'Presidential Suite', 'Suite', 520.00, 260.00, 'Opulent suite with luxurious amenities.', 0),
-    (24, 4, '308', 'Junior Suite', 'Suite', 190.00, 95.00, 'Spacious suite with a comfortable seating area.', 0);
+    (19, 4, '107', 'Standard Room', 'Standard', 80.00, 40.00, 2, 'Simple and comfortable room with basic amenities.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 1, 1, 'Tea/Coffee maker, Complimentary bottled water'),
+    (20, 4, '108', 'Deluxe Room', 'Standard', 100.00, 50.00, 2, 'Elegantly furnished room with additional seating.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'Garden View', 1, 1, 'Minibar, Bathrobe, Slippers'),
+    (21, 4, '207', 'Executive Suite', 'Suite', 250.00, 125.00, 3, 'Luxurious suite with a separate living area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Mountain View', 2, 1, 'Complimentary fruit basket, Access to Executive Lounge'),
+    (22, 4, '208', 'Family Room', 'Standard', 150.00, 75.00, 4, 'Spacious room suitable for families.', 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 2, 1, 'Connecting rooms available upon request, Crib available upon request'),
+    (23, 4, '307', 'Presidential Suite', 'Suite', 500.00, 250.00, 2, 'Opulent suite with a private jacuzzi.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Panoramic View', 3, 1, '24-hour butler service, Complimentary breakfast'),
+    (24, 4, '308', 'Junior Suite', 'Suite', 200.00, 100.00, 3, 'Spacious suite with a separate seating area.', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'City View', 3, 1, 'Separate living room, Complimentary bottled water');
 
 CREATE TABLE `bookings_details` (
 `booking_id` INT AUTO_INCREMENT PRIMARY KEY,
