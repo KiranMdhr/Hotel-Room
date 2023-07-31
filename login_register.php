@@ -48,6 +48,7 @@ if (isset($_SESSION['name'])) {
                 $userId = $conn->lastInsertId(); // Get the last inserted ID
                 $_SESSION['id'] = $userId;
                 $_SESSION['name'] = $username;
+                
                 header('Location: index.php');
                 exit();
             } else {
@@ -119,6 +120,8 @@ if (isset($_SESSION['name'])) {
                                                 <button type="submit" class="btn mt-4" name="login">Login</button>
                                             </form>
                                             <p class="mb-0 mt-4 text-center"><a href="index.php#contact" class="link">Forgot your password?</a></p>
+                                            <p class="mb-0 mt-4 text-center"><a href="admin/login.php" class="link">ADMIN LOGIN</a></p>
+
                                         </div>
                                     </div>
                                 </div>
