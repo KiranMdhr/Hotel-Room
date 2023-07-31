@@ -35,9 +35,7 @@ if (isset($_SESSION['name'])) {
             $fullName = $_POST['fullName'];
             $username = $_POST['registerUsername'];
             $pass = $_POST['registerPassword'];
-            $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-            $c_pass = sha1($_POST['c_pass']);
-            $password = filter_var($c_pass, FILTER_SANITIZE_STRING);
+            $password = sha1($pass);
 
             $sql = "INSERT INTO account_details (name, username, password, account_type) VALUES (:name, :username, :password, 'user')";
 
